@@ -10,6 +10,10 @@ import com.wenyu7980.basic.authorization.domain.RequestUser;
 public class AuthorizationUtil {
     private static ThreadLocal<RequestUser> USERS = new InheritableThreadLocal<>();
 
+    public static String getUserId() {
+        return USERS.get() == null ? null : USERS.get().getUserId();
+    }
+
     public static void set(RequestUser user) {
         USERS.set(user);
     }
