@@ -7,9 +7,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.util.stream.Collectors;
 
 /**
  * 异常处理
@@ -35,10 +38,13 @@ public class ExceptionHandlerConfiguration {
                     exception.getStatus());
         }
         if (e instanceof MethodArgumentNotValidException) {
-            MethodArgumentNotValidException exception = (MethodArgumentNotValidException) e;
-
-            return new ResponseEntity(
-                    new ErrorMsg(9, exception.getLocalizedMessage()),
+            BindingResult result = ((MethodArgumentNotValidException) e)
+                    .getBindingResult();
+            String message = result.getFieldErrors().stream().map(error -> {
+                return error.getField() + error.getDefaultMessage() + ",值:"
+                        + error.getRejectedValue();
+            }).collect(Collectors.joining(","));
+            return new ResponseEntity(new ErrorMsg(9, message),
                     HttpStatus.BAD_REQUEST);
         }
         LOGGER.error("系统错误", e);
