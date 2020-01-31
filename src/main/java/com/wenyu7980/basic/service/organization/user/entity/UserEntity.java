@@ -18,7 +18,7 @@ import java.util.List;
 public class UserEntity {
     /** 用户id */
     @Id
-    @GenericGenerator(name = "UUID", strategy = "uuid")
+    @GenericGenerator(name = "UUID", strategy = "uuid32")
     @GeneratedValue(generator = "UUID")
     private String id;
     /** 用户名 */
@@ -42,6 +42,14 @@ public class UserEntity {
     /** 管理的公司 */
     @OneToMany(mappedBy = "admin")
     private List<CompanyEntity> companies;
+
+    private UserEntity() {
+    }
+
+    public UserEntity(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 
     public String getId() {
         return id;

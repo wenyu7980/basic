@@ -1,0 +1,19 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+spring:
+  datasource:
+    schema:
+      - classpath:schema-sys.sql
+    data:
+      - classpath:data-auth.sql
+      - classpath:data-user.sql
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate.ejb.identifier_generator_strategy_provider: com.wenyu7980.basic.config.database.IdGeneratorStrategyProvider
+  h2:
+    console:
+      enabled: true
