@@ -2,8 +2,11 @@ package com.wenyu7980.basic.common.domain;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * 数据分页
@@ -13,24 +16,30 @@ import java.util.List;
 @ApiModel(description = "数据分页")
 public class PageBody<T> {
     @ApiModelProperty(name = "数据条数", readOnly = true)
-    private Long count;
+    private long count;
     @ApiModelProperty(name = "数据页数", readOnly = true)
-    private Long page;
+    private int pages;
     @ApiModelProperty(name = "数据", readOnly = true)
     private List<T> data;
 
-    public PageBody(Long count, Long page, List<T> data) {
+    public static <E, T> PageBody of(Page<E> page, Function<E, T> mapper) {
+        return new PageBody<T>(page.getTotalElements(), page.getTotalPages(),
+                page.getContent().stream().map(mapper)
+                        .collect(Collectors.toList()));
+    }
+
+    public PageBody(long count, int pages, List<T> data) {
         this.count = count;
-        this.page = page;
+        this.pages = pages;
         this.data = data;
     }
 
-    public Long getCount() {
+    public long getCount() {
         return count;
     }
 
-    public Long getPage() {
-        return page;
+    public int getPages() {
+        return pages;
     }
 
     public List<T> getData() {

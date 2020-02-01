@@ -21,7 +21,7 @@ import javax.validation.Valid;
  * @author wenyu
  * @date 2020-01-28 
  */
-@Api(description = "登录")
+@Api(tags = "登录")
 @RestController
 @RequestMapping(path = "login")
 public class LoginController {

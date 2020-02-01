@@ -33,4 +33,9 @@ public class UserServiceImpl implements UserService {
         return userRepo.findByUsername(username)
                 .orElseThrow(() -> new NotFoundException("用户{0}不存在", username));
     }
+
+    @Override
+    public boolean existsByUsername(String username) {
+        return false;
+    }
 }

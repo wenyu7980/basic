@@ -14,4 +14,10 @@ public interface UserHandler {
      * @return
      */
     User addUser(User user);
+
+    /**
+     * 删除用户
+     * @param id
+     */
+    void removeUser(String id);
 }

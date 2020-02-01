@@ -15,4 +15,11 @@ public interface UserService extends CommonService<UserEntity, String> {
      * @return
      */
     UserEntity findByUsername(String username);
+
+    /**
+     * 判断用户名是否已存在
+     * @param username
+     * @return
+     */
+    boolean existsByUsername(String username);
 }
