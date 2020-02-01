@@ -1,5 +1,6 @@
 package com.wenyu7980.basic.service.organization.user.domain;
 
+import com.wenyu7980.basic.common.auditing.domain.AuditingDomain;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -9,12 +10,12 @@ import io.swagger.annotations.ApiModelProperty;
  * @date 2020-01-26 
  */
 @ApiModel(description = "用户")
-public class User {
-    @ApiModelProperty(name = "用户id", readOnly = true)
+public class User extends AuditingDomain {
+    @ApiModelProperty(value = "用户id", readOnly = true)
     private String id;
-    @ApiModelProperty(name = "用户名")
+    @ApiModelProperty(value = "用户名")
     private String username;
-    @ApiModelProperty(name = "用户密码")
+    @ApiModelProperty(value = "用户密码")
     private String password;
 
     public String getId() {

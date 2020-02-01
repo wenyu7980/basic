@@ -14,15 +14,15 @@ import java.time.LocalDateTime;
  */
 @ApiModel(description = "登录结果")
 public class LoginResult {
-    @ApiModelProperty(name = "请求头Token", readOnly = true)
+    @ApiModelProperty(value = "请求头Token", readOnly = true)
     private String headerToken;
-    @ApiModelProperty(name = "请求参数Token", readOnly = true)
+    @ApiModelProperty(value = "请求参数Token", readOnly = true)
     private String queryToken;
-    @ApiModelProperty(name = "用户信息", readOnly = true)
+    @ApiModelProperty(value = "用户信息", readOnly = true)
     private UserSimple user;
-    @ApiModelProperty(name = "部门信息", readOnly = true)
+    @ApiModelProperty(value = "部门信息", readOnly = true)
     private DepartmentSimple department;
-    @ApiModelProperty(name = "最后登录时间", readOnly = true)
+    @ApiModelProperty(value = "最后登录时间", readOnly = true)
     private LocalDateTime latestLoginDateTime;
 
     public void setHeaderToken(String headerToken) {

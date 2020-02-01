@@ -10,9 +10,9 @@ import io.swagger.annotations.ApiModelProperty;
  */
 @ApiModel(description = "用户简要")
 public class UserSimple {
-    @ApiModelProperty(name = "用户id", readOnly = true)
+    @ApiModelProperty(value = "用户id", readOnly = true)
     private String id;
-    @ApiModelProperty(name = "用户名", readOnly = true)
+    @ApiModelProperty(value = "用户名", readOnly = true)
     private String username;
 
     public String getId() {

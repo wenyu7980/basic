@@ -31,6 +31,13 @@ CREATE TABLE `sys_user`(
   `id` varchar(32) NOT NULL COMMENT '用户id',
   `username` varchar(64) NOT NULL COMMENT '用户名',
   `password` varchar(32) NOT NULL COMMENT '密码',
+  `created_user_id` varchar(32) COMMENT '创建者',
+  `created_date_time` datetime COMMENT '创建时间',
+  `updated_user_id` varchar(32) COMMENT '更新者',
+  `updated_date_time` datetime COMMENT '更新时间时间',
+  `deleted_flag` int(1) NOT NULL DEFAULT 0 COMMENT '删除标志',
+  `deleted_user_id` varchar(32) COMMENT '删除者',
+  `deleted_date_time` datetime COMMENT '删除时间',
   primary key(`id`)
 )
 ENGINE=innodb DEFAULT CHARACTER SET utf8mb4

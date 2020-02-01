@@ -10,9 +10,9 @@ import io.swagger.annotations.ApiModelProperty;
  */
 @ApiModel(description = "公司简要")
 public class CompanySimple {
-    @ApiModelProperty(name = "公司id", readOnly = true)
+    @ApiModelProperty(value = "公司id", readOnly = true)
     private String id;
-    @ApiModelProperty(name = "公司名称", readOnly = true)
+    @ApiModelProperty(value = "公司名称", readOnly = true)
     private String name;
 
     public String getId() {

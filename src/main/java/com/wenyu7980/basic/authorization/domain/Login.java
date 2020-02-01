@@ -12,10 +12,10 @@ import javax.validation.constraints.NotEmpty;
  */
 @ApiModel(description = "登录信息")
 public class Login {
-    @ApiModelProperty(name = "用户名", required = true)
+    @ApiModelProperty(value = "用户名", required = true)
     @NotEmpty
     private String username;
-    @ApiModelProperty(name = "密码", required = true)
+    @ApiModelProperty(value = "密码", required = true)
     @NotEmpty
     private String password;
 

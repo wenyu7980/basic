@@ -1,9 +1,11 @@
 package com.wenyu7980.basic.service.organization.user.entity;
 
+import com.wenyu7980.basic.common.auditing.entity.AuditingEntity;
 import com.wenyu7980.basic.service.organization.company.entity.CompanyEntity;
 import com.wenyu7980.basic.service.organization.department.entity.DepartmentEntity;
 import com.wenyu7980.basic.service.organization.role.entity.RoleEntity;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.util.List;
@@ -15,7 +17,8 @@ import java.util.List;
  */
 @Table(name = "sys_user")
 @Entity
-public class UserEntity {
+@EntityListeners({ AuditingEntityListener.class })
+public class UserEntity extends AuditingEntity {
     /** 用户id */
     @Id
     @GenericGenerator(name = "UUID", strategy = "uuid32")
@@ -25,6 +28,7 @@ public class UserEntity {
     private String username;
     /** 密码 */
     private String password;
+
     /** 角色 */
     @ManyToMany
     @JoinTable(name = "sys_user_role", joinColumns = {
@@ -78,4 +82,5 @@ public class UserEntity {
     public List<CompanyEntity> getCompanies() {
         return companies;
     }
+
 }
