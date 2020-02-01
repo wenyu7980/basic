@@ -1,7 +1,7 @@
 package com.wenyu7980.basic.authorization.service;
 
 import com.wenyu7980.basic.authorization.entity.TokenEntity;
-import com.wenyu7980.basic.common.CommonService;
+import com.wenyu7980.basic.common.service.CommonService;
 
 import java.util.List;
 import java.util.Optional;

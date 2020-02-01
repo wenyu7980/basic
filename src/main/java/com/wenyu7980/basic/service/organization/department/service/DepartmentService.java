@@ -1,6 +1,6 @@
 package com.wenyu7980.basic.service.organization.department.service;
 
-import com.wenyu7980.basic.common.CommonService;
+import com.wenyu7980.basic.common.service.CommonService;
 import com.wenyu7980.basic.service.organization.department.entity.DepartmentEntity;
 
 /**

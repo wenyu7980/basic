@@ -1,4 +1,4 @@
-package com.wenyu7980.basic.common;
+package com.wenyu7980.basic.common.service;
 
 /**
  * @author wenyu
