@@ -1,4 +1,4 @@
-package com.wenyu7980.basic.common.domain;
+package com.wenyu7980.basic.common.query;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

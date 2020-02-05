@@ -1,14 +1,20 @@
 package com.wenyu7980.basic.service.organization.user.controller;
 
-import com.wenyu7980.basic.common.domain.PageBody;
+import com.wenyu7980.basic.authorization.annotation.AuthRequest;
+import com.wenyu7980.basic.common.query.PageBody;
+import com.wenyu7980.basic.common.query.QuerySearch;
+import com.wenyu7980.basic.common.query.QuerySearchName;
+import com.wenyu7980.basic.common.query.QuerySearchUtil;
 import com.wenyu7980.basic.service.organization.user.domain.UserListDetail;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import com.wenyu7980.query.QueryCompare;
+import com.wenyu7980.query.QueryCondition;
+import com.wenyu7980.query.QueryPredicateExpress;
+import io.swagger.annotations.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 /**
  *
@@ -25,7 +31,10 @@ public class UserQueryController {
     })
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(code = HttpStatus.OK)
-    public PageBody<UserListDetail> getUsers() {
+    public PageBody<UserListDetail> getUsers(
+            @ApiParam(name = "页码") @RequestParam(value = "page", defaultValue = "0") int page,
+            @ApiParam(name = "页大小") @RequestParam(value = "size", defaultValue = "20") int size,
+            @ApiParam(name = "是否查询详情") @RequestParam(value = "detail", defaultValue = "false") boolean detail) {
         return null;
     }
 
@@ -35,8 +44,25 @@ public class UserQueryController {
     })
     @PostMapping(path = "search", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(code = HttpStatus.OK)
-    public PageBody<UserListDetail> searchUsers() {
+    @AuthRequest(required = false)
+    public PageBody<UserListDetail> searchUsers(
+            @ApiParam(name = "页码") @RequestParam(value = "page", defaultValue = "0") int page,
+            @ApiParam(name = "页大小") @RequestParam(value = "size", defaultValue = "20") int size,
+            @ApiParam(name = "是否查询详情") @RequestParam(value = "detail", defaultValue = "false") boolean detail,
+            @RequestBody @Valid QuerySearch<UserSearchName> search) {
+        QueryPredicateExpress express = QuerySearchUtil
+                .toPredicateExpress(search);
         return null;
     }
 
+    public enum UserSearchName implements QuerySearchName {
+        username() {
+            @Override
+            public QueryPredicateExpress queryExpress(QueryCompare compare,
+                    Object object) {
+                return QueryCondition.of("username", compare,
+                        object == null ? null : object.toString());
+            }
+        };
+    }
 }
