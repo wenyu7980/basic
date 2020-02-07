@@ -32,9 +32,9 @@ public class UserQueryController {
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(code = HttpStatus.OK)
     public PageBody<UserListDetail> getUsers(
-            @ApiParam(name = "页码") @RequestParam(value = "page", defaultValue = "0") int page,
-            @ApiParam(name = "页大小") @RequestParam(value = "size", defaultValue = "20") int size,
-            @ApiParam(name = "是否查询详情") @RequestParam(value = "detail", defaultValue = "false") boolean detail) {
+            @ApiParam(name = "页码", example = "0", required = false) @RequestParam(value = "index", required = false, defaultValue = "0") Integer index,
+            @ApiParam(name = "页大小", example = "20", required = false) @RequestParam(value = "size", required = false, defaultValue = "20") Integer size,
+            @ApiParam(name = "是否查询详情", example = "false", required = false) @RequestParam(value = "detail", required = false, defaultValue = "false") boolean detail) {
         return null;
     }
 
@@ -46,9 +46,9 @@ public class UserQueryController {
     @ResponseStatus(code = HttpStatus.OK)
     @AuthRequest(required = false)
     public PageBody<UserListDetail> searchUsers(
-            @ApiParam(name = "页码") @RequestParam(value = "page", defaultValue = "0") int page,
-            @ApiParam(name = "页大小") @RequestParam(value = "size", defaultValue = "20") int size,
-            @ApiParam(name = "是否查询详情") @RequestParam(value = "detail", defaultValue = "false") boolean detail,
+            @ApiParam(name = "页码", example = "0", required = false) @RequestParam(value = "index", required = false, defaultValue = "0") Integer index,
+            @ApiParam(name = "页大小", example = "20", required = false) @RequestParam(value = "size", required = false, defaultValue = "20") Integer size,
+            @ApiParam(name = "是否查询详情", example = "false", required = false) @RequestParam(value = "detail", required = false, defaultValue = "false") boolean detail,
             @RequestBody @Valid QuerySearch<UserSearchName> search) {
         QueryPredicateExpress express = QuerySearchUtil
                 .toPredicateExpress(search);

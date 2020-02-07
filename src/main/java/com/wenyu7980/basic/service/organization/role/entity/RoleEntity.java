@@ -1,7 +1,9 @@
 package com.wenyu7980.basic.service.organization.role.entity;
 
-import com.wenyu7980.basic.service.organization.user.entity.UserEntity;
+import com.wenyu7980.basic.service.organization.menu.entity.MenuEntity;
+import com.wenyu7980.basic.service.organization.menu.entity.OperatorEntity;
 import com.wenyu7980.basic.service.organization.permission.entity.PermissionEntity;
+import com.wenyu7980.basic.service.organization.user.entity.UserEntity;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -30,6 +32,12 @@ public class RoleEntity {
             @JoinColumn(name = "role_id")
     }, inverseJoinColumns = { @JoinColumn(name = "permission_code") })
     private List<PermissionEntity> permissions;
+    /** 菜单 */
+    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
+    private List<MenuEntity> menus;
+    /** 操作 */
+    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
+    private List<OperatorEntity> operators;
 
     public String getId() {
         return id;
@@ -45,5 +53,13 @@ public class RoleEntity {
 
     public List<PermissionEntity> getPermissions() {
         return permissions;
+    }
+
+    public List<MenuEntity> getMenus() {
+        return menus;
+    }
+
+    public List<OperatorEntity> getOperators() {
+        return operators;
     }
 }

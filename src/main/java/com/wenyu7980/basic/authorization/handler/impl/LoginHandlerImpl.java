@@ -9,6 +9,10 @@ import com.wenyu7980.basic.authorization.handler.LoginHandler;
 import com.wenyu7980.basic.authorization.util.PasswordUtil;
 import com.wenyu7980.basic.exception.code401.LoginFailException;
 import com.wenyu7980.basic.service.organization.department.entity.DepartmentEntity;
+import com.wenyu7980.basic.service.organization.menu.entity.MenuEntity;
+import com.wenyu7980.basic.service.organization.menu.entity.OperatorEntity;
+import com.wenyu7980.basic.service.organization.menu.service.MenuService;
+import com.wenyu7980.basic.service.organization.menu.service.OperatorService;
 import com.wenyu7980.basic.service.organization.user.entity.UserEntity;
 import com.wenyu7980.basic.service.organization.user.mapper.UserMapper;
 import com.wenyu7980.basic.service.organization.user.service.UserService;
@@ -19,6 +23,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -31,6 +36,10 @@ public class LoginHandlerImpl implements LoginHandler {
     private UserService userService;
     @Autowired
     private TokenComponent tokenComponent;
+    @Autowired
+    private MenuService menuService;
+    @Autowired
+    private OperatorService operatorService;
     /** 单次登录 */
     @Value("${application.login.single:false}")
     private Boolean single;
@@ -82,6 +91,12 @@ public class LoginHandlerImpl implements LoginHandler {
         result.setUser(UserMapper.simpleMap(entity));
         result.setHeaderToken(tokens.get(TokenType.HEADER));
         result.setQueryToken(tokens.get(TokenType.QUERY));
+        result.setMenus(menuService.findByUserId(entity.getId()).stream()
+                .map(MenuEntity::getCode).collect(Collectors.toSet()));
+        result.setOperators(
+                operatorService.findByUserId(entity.getId()).stream()
+                        .map(OperatorEntity::getCode)
+                        .collect(Collectors.toSet()));
         return result;
     }
 }
