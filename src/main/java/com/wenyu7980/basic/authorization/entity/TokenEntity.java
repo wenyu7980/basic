@@ -29,6 +29,8 @@ public class TokenEntity {
     private String departmentId;
     /** 公司id */
     private String companyId;
+    /** 系统管理员 */
+    private Boolean system;
     /** 过期时间（s） */
     private Long expire;
     /** 是否有效 */
@@ -43,14 +45,15 @@ public class TokenEntity {
      * @param userId
      * @param departmentId
      * @param companyId
+     * @param system
      * @param username
      * @param expire
      * @return
      */
     public static TokenEntity ofHeader(String userId, String departmentId,
-            String companyId, String username, Long expire) {
+            String companyId, Boolean system, String username, Long expire) {
         return new TokenEntity(TokenType.HEADER, userId, departmentId,
-                companyId, username, expire);
+                companyId, system, username, expire);
     }
 
     /**
@@ -58,21 +61,22 @@ public class TokenEntity {
      * @param userId
      * @param departmentId
      * @param companyId
+     * @param system
      * @param username
      * @param expire
      * @return
      */
     public static TokenEntity ofQuery(String userId, String departmentId,
-            String companyId, String username, Long expire) {
+            String companyId, Boolean system, String username, Long expire) {
         return new TokenEntity(TokenType.QUERY, userId, departmentId, companyId,
-                username, expire);
+                system, username, expire);
     }
 
     private TokenEntity() {
     }
 
     private TokenEntity(TokenType type, String userId, String departmentId,
-            String companyId, String username, Long expire) {
+            String companyId, Boolean system, String username, Long expire) {
         this.token = UUID.randomUUID().toString().replaceAll("-", "");
         this.type = type;
         this.userId = userId;
@@ -81,6 +85,7 @@ public class TokenEntity {
         this.username = username;
         this.expire = expire;
         this.loginDateTime = LocalDateTime.now();
+        this.system = system;
     }
 
     /**
@@ -133,5 +138,9 @@ public class TokenEntity {
 
     public String getCompanyId() {
         return companyId;
+    }
+
+    public Boolean getSystem() {
+        return system;
     }
 }

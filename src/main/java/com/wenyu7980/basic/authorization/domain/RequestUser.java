@@ -14,6 +14,8 @@ public class RequestUser {
     private String departmentId;
     /** 公司id */
     private String companyId;
+    /** 系统管理员 */
+    private Boolean system;
     /** 用户名 */
     private String username;
     /** token */
@@ -22,13 +24,15 @@ public class RequestUser {
     private TokenType tokenType;
 
     public RequestUser(String userId, String departmentId, String companyId,
-            String username, String token, TokenType tokenType) {
+            Boolean system, String username, String token,
+            TokenType tokenType) {
         this.userId = userId;
         this.departmentId = departmentId;
         this.companyId = companyId;
         this.username = username;
         this.token = token;
         this.tokenType = tokenType;
+        this.system = system;
     }
 
     public String getUserId() {
@@ -53,5 +57,9 @@ public class RequestUser {
 
     public TokenType getTokenType() {
         return tokenType;
+    }
+
+    public Boolean getSystem() {
+        return system;
     }
 }

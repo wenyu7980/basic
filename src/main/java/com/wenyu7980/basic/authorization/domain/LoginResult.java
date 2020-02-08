@@ -21,6 +21,8 @@ public class LoginResult {
     private String queryToken;
     @ApiModelProperty(value = "用户信息", readOnly = true)
     private UserSimple user;
+    @ApiModelProperty(value = "系统管理员", readOnly = true)
+    private Boolean system;
     @ApiModelProperty(value = "部门信息", readOnly = true)
     private DepartmentSimple department;
     @ApiModelProperty(value = "最后登录时间", readOnly = true)
@@ -36,6 +38,10 @@ public class LoginResult {
 
     public void setQueryToken(String queryToken) {
         this.queryToken = queryToken;
+    }
+
+    public void setSystem(Boolean system) {
+        this.system = system;
     }
 
     public String getHeaderToken() {

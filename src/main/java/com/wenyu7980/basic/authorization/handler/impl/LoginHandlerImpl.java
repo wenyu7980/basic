@@ -85,12 +85,12 @@ public class LoginHandlerImpl implements LoginHandler {
         // 获取新的token
         Map<TokenType, String> tokens = tokenComponent
                 .getTokens(entity.getId(), departmentId,
-                        departmentEntity != null ?
-                                departmentEntity.getCompany().getId() :
-                                null, entity.getUsername());
+                        departmentEntity.getCompanyId().orElse(null),
+                        entity.getSystem(), entity.getUsername());
         result.setUser(UserMapper.simpleMap(entity));
         result.setHeaderToken(tokens.get(TokenType.HEADER));
         result.setQueryToken(tokens.get(TokenType.QUERY));
+        result.setSystem(entity.getSystem());
         result.setMenus(menuService.findByUserId(entity.getId()).stream()
                 .map(MenuEntity::getCode).collect(Collectors.toSet()));
         result.setOperators(

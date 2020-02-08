@@ -1,6 +1,6 @@
-INSERT INTO `sys_user`(`id`,`username`,`password`)
+INSERT INTO `sys_user`(`id`,`username`,`password`,`system`)
 VALUES
-(replace(uuid(), '-', ''),'admin','5f4dcc3b5aa765d61d8327deb882cf99');
+(replace(uuid(), '-', ''),'admin','5f4dcc3b5aa765d61d8327deb882cf99','1');
 -- 部门配置
 INSERT INTO sys_company (id,name)
 VALUES

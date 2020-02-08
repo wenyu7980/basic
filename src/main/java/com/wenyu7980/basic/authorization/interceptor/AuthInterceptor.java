@@ -97,8 +97,8 @@ public class AuthInterceptor implements HandlerInterceptor {
         }
         AuthorizationUtil.set(new RequestUser(tokenEntity.getUserId(),
                 tokenEntity.getDepartmentId(), tokenEntity.getCompanyId(),
-                tokenEntity.getUsername(), tokenEntity.getToken(),
-                tokenEntity.getType()));
+                tokenEntity.getSystem(), tokenEntity.getUsername(),
+                tokenEntity.getToken(), tokenEntity.getType()));
         return true;
     }
 

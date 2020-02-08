@@ -16,6 +16,7 @@ CREATE TABLE `sys_token`(
   `user_id` varchar(32) NOT NULL COMMENT '用户id',
   `department_id` varchar(32) COMMENT '部门id',
   `company_id` varchar(32) COMMENT '公司id',
+  `system` int(1) COMMENT '系统管理员',
   `username` varchar(64) NOT NULL COMMENT '用户名',
   `expire` bigint(20) NOT NULL COMMENT '过期时间',
   `valid` int(1) NOT NULL DEFAULT 1 COMMENT '是否有效',
@@ -31,6 +32,7 @@ CREATE TABLE `sys_user`(
   `id` varchar(32) NOT NULL COMMENT '用户id',
   `username` varchar(64) NOT NULL COMMENT '用户名',
   `password` varchar(32) NOT NULL COMMENT '密码',
+  `system` int(1) NOT NULL DEFAULT 0 COMMENT '系统管理员',
   `created_user_id` varchar(32) COMMENT '创建者',
   `created_date_time` datetime COMMENT '创建时间',
   `updated_user_id` varchar(32) COMMENT '更新者',
@@ -97,6 +99,13 @@ COMMENT '权限表';
 CREATE TABLE `sys_role`(
   `id` varchar(32) NOT NULL COMMENT '角色id',
   `name` varchar(255) NOT NULL COMMENT '名称',
+  `created_user_id` varchar(32) COMMENT '创建者',
+  `created_date_time` datetime COMMENT '创建时间',
+  `updated_user_id` varchar(32) COMMENT '更新者',
+  `updated_date_time` datetime COMMENT '更新时间时间',
+  `deleted_flag` int(1) NOT NULL DEFAULT 0 COMMENT '删除标志',
+  `deleted_user_id` varchar(32) COMMENT '删除者',
+  `deleted_date_time` datetime COMMENT '删除时间',
   primary key(`id`)
 )
 ENGINE=innodb DEFAULT CHARACTER SET utf8mb4

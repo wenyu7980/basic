@@ -26,4 +26,5 @@ public @interface AuthRequest {
      * @return
      */
     TokenType type() default TokenType.HEADER;
+
 }

@@ -20,7 +20,7 @@ import java.util.List;
  * @author wenyu
  * @date 2020-02-07 
  */
-@Api(tags = "权限")
+@Api(tags = "角色权限管理")
 @RestController
 @RequestMapping("permissions")
 public class PermissionQueryController {

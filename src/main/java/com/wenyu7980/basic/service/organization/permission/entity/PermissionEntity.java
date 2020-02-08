@@ -30,6 +30,9 @@ public class PermissionEntity {
     @ManyToMany(mappedBy = "permissions")
     private List<RoleEntity> roles;
 
+    public PermissionEntity() {
+    }
+
     public String getCode() {
         return code;
     }

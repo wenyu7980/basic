@@ -1,12 +1,13 @@
 package com.wenyu7980.basic.service.organization.department.entity;
 
-import com.wenyu7980.basic.service.organization.user.entity.UserEntity;
 import com.wenyu7980.basic.service.organization.company.entity.CompanyEntity;
+import com.wenyu7980.basic.service.organization.user.entity.UserEntity;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * 部门
@@ -66,6 +67,12 @@ public class DepartmentEntity {
         return company;
     }
 
+    public Optional<String> getCompanyId() {
+        return getCompany() == null ?
+                Optional.empty() :
+                Optional.of(getCompany().getId());
+    }
+
     public List<UserEntity> getAdmins() {
         return admins;
     }
@@ -76,10 +83,10 @@ public class DepartmentEntity {
 
     @Override
     public boolean equals(Object object) {
-        if (this == object){
+        if (this == object) {
             return true;
         }
-        if (object == null || getClass() != object.getClass()){
+        if (object == null || getClass() != object.getClass()) {
             return false;
         }
         DepartmentEntity that = (DepartmentEntity) object;

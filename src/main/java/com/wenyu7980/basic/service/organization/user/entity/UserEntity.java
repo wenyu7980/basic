@@ -17,7 +17,6 @@ import java.util.List;
  */
 @Table(name = "sys_user")
 @Entity
-@EntityListeners({ AuditingEntityListener.class })
 public class UserEntity extends AuditingEntity {
     /** 用户id */
     @Id
@@ -28,6 +27,8 @@ public class UserEntity extends AuditingEntity {
     private String username;
     /** 密码 */
     private String password;
+    /** 系统管理员 */
+    private Boolean system = false;
 
     /** 角色 */
     @ManyToMany
@@ -65,6 +66,10 @@ public class UserEntity extends AuditingEntity {
 
     public String getPassword() {
         return password;
+    }
+
+    public Boolean getSystem() {
+        return system;
     }
 
     public List<RoleEntity> getRoles() {

@@ -19,6 +19,7 @@ public class UserMapper {
         User user = new User();
         user.setId(entity.getId());
         user.setUsername(entity.getUsername());
+        user.setSystem(entity.getSystem());
         AuditingMapper.mapTo(entity, user);
         return user;
     }

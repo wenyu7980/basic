@@ -32,14 +32,16 @@ public class TokenComponent {
      * @return
      */
     public Map<TokenType, String> getTokens(String userId, String departmentId,
-            String companyId, String username) {
+            String companyId, Boolean system, String username) {
         Map<TokenType, String> tokens = new HashMap<>(2);
         TokenEntity header = TokenEntity
-                .ofHeader(userId, departmentId, companyId, username, expire);
+                .ofHeader(userId, departmentId, companyId, system, username,
+                        expire);
         tokens.put(TokenType.HEADER, header.getToken());
         tokenService.save(header);
         TokenEntity query = TokenEntity
-                .ofQuery(userId, departmentId, companyId, username, expire);
+                .ofQuery(userId, departmentId, companyId, system, username,
+                        expire);
         tokens.put(TokenType.QUERY, query.getToken());
         tokenService.save(query);
         return tokens;

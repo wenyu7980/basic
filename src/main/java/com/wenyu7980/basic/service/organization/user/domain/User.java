@@ -17,6 +17,8 @@ public class User extends AuditingDomain {
     private String username;
     @ApiModelProperty(value = "用户密码")
     private String password;
+    @ApiModelProperty(value = "系统管理员")
+    private Boolean system;
 
     public String getId() {
         return id;
@@ -40,5 +42,13 @@ public class User extends AuditingDomain {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Boolean getSystem() {
+        return system;
+    }
+
+    public void setSystem(Boolean system) {
+        this.system = system;
     }
 }

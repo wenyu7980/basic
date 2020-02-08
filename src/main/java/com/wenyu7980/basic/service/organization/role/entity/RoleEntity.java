@@ -1,5 +1,6 @@
 package com.wenyu7980.basic.service.organization.role.entity;
 
+import com.wenyu7980.basic.common.auditing.entity.AuditingEntity;
 import com.wenyu7980.basic.service.organization.menu.entity.MenuEntity;
 import com.wenyu7980.basic.service.organization.menu.entity.OperatorEntity;
 import com.wenyu7980.basic.service.organization.permission.entity.PermissionEntity;
@@ -16,7 +17,7 @@ import java.util.List;
  */
 @Table(name = "sys_role")
 @Entity
-public class RoleEntity {
+public class RoleEntity extends AuditingEntity {
     @Id
     @GenericGenerator(name = "UUID", strategy = "uuid")
     @GeneratedValue(generator = "UUID")
@@ -38,6 +39,22 @@ public class RoleEntity {
     /** 操作 */
     @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
     private List<OperatorEntity> operators;
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPermissions(List<PermissionEntity> permissions) {
+        this.permissions = permissions;
+    }
+
+    public void setMenus(List<MenuEntity> menus) {
+        this.menus = menus;
+    }
+
+    public void setOperators(List<OperatorEntity> operators) {
+        this.operators = operators;
+    }
 
     public String getId() {
         return id;
