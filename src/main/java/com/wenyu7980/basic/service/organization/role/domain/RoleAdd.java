@@ -1,5 +1,6 @@
 package com.wenyu7980.basic.service.organization.role.domain;
 
+import com.wenyu7980.basic.service.organization.permission.domain.Permission;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -18,7 +19,7 @@ public class RoleAdd {
     private String name;
     @ApiModelProperty(name = "权限code", required = true)
     @NotEmpty
-    private Set<String> permissionCodes;
+    private Set<Permission> permissions;
     @ApiModelProperty(name = "菜单code", required = true)
     @NotEmpty
     private Set<String> menuCodes;
@@ -34,12 +35,12 @@ public class RoleAdd {
         this.name = name;
     }
 
-    public Set<String> getPermissionCodes() {
-        return permissionCodes;
+    public Set<Permission> getPermissions() {
+        return permissions;
     }
 
-    public void setPermissionCodes(Set<String> permissionCodes) {
-        this.permissionCodes = permissionCodes;
+    public void setPermissions(Set<Permission> permissions) {
+        this.permissions = permissions;
     }
 
     public Set<String> getMenuCodes() {

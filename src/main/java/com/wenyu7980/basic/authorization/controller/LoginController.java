@@ -23,7 +23,7 @@ import javax.validation.Valid;
  */
 @Api(tags = "登录")
 @RestController
-@RequestMapping(path = "login")
+@RequestMapping("login")
 public class LoginController {
     @Autowired
     private LoginHandler loginHandler;

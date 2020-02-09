@@ -87,6 +87,10 @@ public class AuthInterceptor implements HandlerInterceptor {
             this.tokenService.save(tokenEntity);
             throw new TokenInvalidException("token已失效");
         }
+        if (tokenEntity.getSystem()) {
+            // 超级管理员不做权限校验
+            return true;
+        }
         PermissionEntity permission = authComponent
                 .getPermissionByRequest(request.getMethod(),
                         request.getServletPath());

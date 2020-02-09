@@ -86,11 +86,10 @@ COMMENT '部门管理员表';
 
 -- 权限表
 CREATE TABLE `sys_permission`(
-  `code` varchar(45) NOT NULL COMMENT '权限code',
-  `name` varchar(255) NOT NULL COMMENT '名称',
   `method` varchar(45) NOT NULL COMMENT '请求方法',
   `path` varchar(255) NOT NULL COMMENT '路径',
-  primary key(`code`)
+  `name` varchar(255) NOT NULL COMMENT '名称',
+  primary key(`method`,`path`)
 )
 ENGINE=innodb DEFAULT CHARACTER SET utf8mb4
 COMMENT '权限表';
@@ -114,8 +113,9 @@ COMMENT '角色表';
 -- 角色权限表
 CREATE TABLE `sys_role_permission`(
   `role_id` varchar(32) NOT NULL COMMENT '角色id',
-  `permission_code` varchar(45) NOT NULL COMMENT '权限code',
-  primary key(`role_id`,`permission_code`)
+  `method` varchar(45) NOT NULL COMMENT '请求方法',
+  `path` varchar(255) NOT NULL COMMENT '路径',
+  primary key(`role_id`,`method`,`path`)
 )
 ENGINE=innodb DEFAULT CHARACTER SET utf8mb4
 COMMENT '角色权限表';

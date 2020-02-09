@@ -31,7 +31,10 @@ public class RoleEntity extends AuditingEntity {
     @ManyToMany
     @JoinTable(name = "sys_role_permission", joinColumns = {
             @JoinColumn(name = "role_id")
-    }, inverseJoinColumns = { @JoinColumn(name = "permission_code") })
+    }, inverseJoinColumns = {
+            @JoinColumn(name = "method", referencedColumnName = "method"),
+            @JoinColumn(name = "path", referencedColumnName = "path")
+    })
     private List<PermissionEntity> permissions;
     /** 菜单 */
     @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)

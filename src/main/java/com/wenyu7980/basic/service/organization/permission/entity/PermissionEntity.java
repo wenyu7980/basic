@@ -2,8 +2,8 @@ package com.wenyu7980.basic.service.organization.permission.entity;
 
 import com.wenyu7980.basic.service.organization.role.entity.RoleEntity;
 
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import java.util.List;
@@ -18,23 +18,20 @@ import java.util.Objects;
 @Entity
 public class PermissionEntity {
     /** 权限code */
-    @Id
-    private String code;
+    @EmbeddedId
+    private PermissionKey key;
     /** 权限名 */
     private String name;
-    /** 请求方法:POST,GET,HEAD,DELETE,PUT */
-    private String method;
-    /** 路径 */
-    private String path;
     /** 角色 */
     @ManyToMany(mappedBy = "permissions")
     private List<RoleEntity> roles;
 
-    public PermissionEntity() {
+    private PermissionEntity() {
     }
 
-    public String getCode() {
-        return code;
+    public PermissionEntity(String method, String path, String name) {
+        this.key = new PermissionKey(method, path);
+        this.name = name;
     }
 
     public String getName() {
@@ -42,11 +39,11 @@ public class PermissionEntity {
     }
 
     public String getPath() {
-        return path;
+        return this.key.getPath();
     }
 
     public String getMethod() {
-        return method;
+        return this.key.getMethod();
     }
 
     public List<RoleEntity> getRoles() {
@@ -62,11 +59,11 @@ public class PermissionEntity {
             return false;
         }
         PermissionEntity that = (PermissionEntity) object;
-        return code.equals(that.code);
+        return Objects.equals(this.key, that.key);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(code);
+        return Objects.hash(this.key);
     }
 }

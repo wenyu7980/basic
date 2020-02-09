@@ -14,9 +14,8 @@ public class PermissionMapper {
 
     public static Permission map(PermissionEntity entity) {
         Permission permission = new Permission();
-        permission.setCode(entity.getCode());
         permission.setMethod(entity.getMethod());
-        permission.setName(entity.getMethod());
+        permission.setName(entity.getName());
         permission.setPath(entity.getPath());
         return permission;
     }

@@ -35,7 +35,7 @@ public class RoleController {
         return null;
     }
 
-    @ApiOperation("创建角色")
+    @ApiOperation("修改角色")
     @ApiResponses({
             @ApiResponse(code = 201, message = "修改成功")
     })
@@ -49,7 +49,7 @@ public class RoleController {
         return null;
     }
 
-    @ApiOperation("创建角色")
+    @ApiOperation("删除角色")
     @ApiResponses({
             @ApiResponse(code = 201, message = "创建成功")
     })

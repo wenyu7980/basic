@@ -63,7 +63,8 @@ public class DictionaryStarter implements CommandLineRunner {
                         new DictionaryItemEntity(entity, e.code(), e.name()));
             }
             dictionaryService.save(entity);
-            LOGGER.warn("系统字典:{}插入，共{}个字典选项", dict.code(), dict.items().length);
+            LOGGER.debug("系统字典:{}插入，共{}个字典选项", dict.code(),
+                    dict.items().length);
         }
         LOGGER.info("完成{}个系统字典插入", definitions.size());
     }

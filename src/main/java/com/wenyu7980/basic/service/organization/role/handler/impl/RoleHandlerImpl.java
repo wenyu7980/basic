@@ -33,8 +33,10 @@ public class RoleHandlerImpl implements RoleHandler {
     public Role addRole(RoleAdd role) {
         RoleEntity entity = new RoleEntity();
         entity.setName(role.getName());
-        entity.setPermissions(role.getPermissionCodes().stream()
-                .map(code -> this.permissionService.findById(code))
+        entity.setPermissions(role.getPermissions().stream()
+                .map(permission -> this.permissionService
+                        .findByMethodAndPath(permission.getMethod(),
+                                permission.getPath()))
                 .collect(Collectors.toList()));
         entity.setMenus(role.getMenuCodes().stream()
                 .map(code -> new MenuEntity(entity, code))

@@ -3,6 +3,8 @@ package com.wenyu7980.basic.service.organization.permission.domain;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.validation.constraints.NotEmpty;
+
 /**
  * 权限
  * @author wenyu
@@ -10,22 +12,14 @@ import io.swagger.annotations.ApiModelProperty;
  */
 @ApiModel(description = "权限")
 public class Permission {
-    @ApiModelProperty(name = "权限code", readOnly = true)
-    private String code;
-    @ApiModelProperty(name = "权限名", readOnly = true)
-    private String name;
-    @ApiModelProperty(name = "请求方法", allowableValues = "POST,GET,HEAD,DELETE,PUT", readOnly = true)
+    @ApiModelProperty(name = "请求方法", required = true, allowableValues = "POST,GET,HEAD,DELETE,PUT", readOnly = true)
+    @NotEmpty
     private String method;
     @ApiModelProperty(name = "路径", readOnly = true)
+    @NotEmpty
     private String path;
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
+    @ApiModelProperty(name = "权限名", readOnly = true)
+    private String name;
 
     public String getName() {
         return name;
