@@ -1,7 +1,5 @@
 package com.wenyu7980.basic.service.organization.role.controller;
 
-import com.wenyu7980.basic.authorization.util.AuthorizationUtil;
-import com.wenyu7980.basic.exception.code403.InsufficientException;
 import com.wenyu7980.basic.service.organization.role.domain.Role;
 import com.wenyu7980.basic.service.organization.role.domain.RoleAdd;
 import com.wenyu7980.basic.service.organization.role.handler.RoleHandler;
@@ -20,7 +18,7 @@ import javax.validation.Valid;
  * @author wenyu
  * @date 2020-02-07 
  */
-@Api(tags = "角色权限管理")
+@Api(tags = "角色管理")
 @RestController
 @RequestMapping("roles")
 public class RoleController {
@@ -34,9 +32,6 @@ public class RoleController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Role addRole(@RequestBody @Valid RoleAdd role) {
-        if (!AuthorizationUtil.get().getSystem()) {
-            throw new InsufficientException("只有系统管理员才可以创建角色");
-        }
         return roleHandler.addRole(role);
     }
 
@@ -48,22 +43,16 @@ public class RoleController {
     @ResponseStatus(HttpStatus.CREATED)
     public Role modifyRole(@PathVariable(name = "id") String id,
             @RequestBody @Valid RoleAdd role) {
-        if (!AuthorizationUtil.get().getSystem()) {
-            throw new InsufficientException("只有系统管理员才可以创建角色");
-        }
         return roleHandler.modifyRole(id, role);
     }
 
     @ApiOperation("删除角色")
     @ApiResponses({
-            @ApiResponse(code = 201, message = "创建成功")
+            @ApiResponse(code = 204, message = "创建成功")
     })
     @DeleteMapping(path = "{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void removeRole(@PathVariable(name = "id") String id) {
-        if (!AuthorizationUtil.get().getSystem()) {
-            throw new InsufficientException("只有系统管理员才可以创建角色");
-        }
         roleHandler.removeRole(id);
     }
 }

@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
  * @author wenyu
  * @date 2020-02-10 
  */
-@Api(tags = "角色权限管理")
+@Api(tags = "角色管理")
 @RestController
 @RequestMapping("roles")
 public class RoleQueryController {
