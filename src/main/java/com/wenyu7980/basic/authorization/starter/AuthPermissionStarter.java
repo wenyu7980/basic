@@ -75,6 +75,7 @@ public class AuthPermissionStarter implements CommandLineRunner {
                     if (!this.fetchMappingToInfo(annotation, info)) {
                         continue;
                     }
+                    // 获取接口权限名
                     ApiOperation operation = method
                             .getAnnotation(ApiOperation.class);
                     if (Objects.nonNull(operation)) {
@@ -87,10 +88,12 @@ public class AuthPermissionStarter implements CommandLineRunner {
 
             }
         }
+        // 删除废除的
         olds.removeAll(news);
         permissionService.deleteAll(olds);
+        // 保存
         permissionService.saveAll(news);
-        LOGGER.info("权限接口共{}个",news.size());
+        LOGGER.info("权限接口共{}个", news.size());
 
     }
 

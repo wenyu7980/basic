@@ -7,7 +7,6 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 /**
  * 部门
@@ -67,10 +66,8 @@ public class DepartmentEntity {
         return company;
     }
 
-    public Optional<String> getCompanyId() {
-        return getCompany() == null ?
-                Optional.empty() :
-                Optional.of(getCompany().getId());
+    public String getCompanyId() {
+        return getCompany().getId();
     }
 
     public List<UserEntity> getAdmins() {

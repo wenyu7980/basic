@@ -15,12 +15,16 @@ public class UserMapper {
     private UserMapper() {
     }
 
-    public static User map(UserEntity entity) {
-        User user = new User();
+    public static void map(UserEntity entity, User user) {
         user.setId(entity.getId());
         user.setUsername(entity.getUsername());
         user.setSystem(entity.getSystem());
         AuditingMapper.mapTo(entity, user);
+    }
+
+    public static User map(UserEntity entity) {
+        User user = new User();
+        map(entity, user);
         return user;
     }
 

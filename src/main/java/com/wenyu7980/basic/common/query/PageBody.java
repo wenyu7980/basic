@@ -28,7 +28,7 @@ public class PageBody<T> {
                         .collect(Collectors.toList()));
     }
 
-    public PageBody(long count, int pages, List<T> data) {
+    private PageBody(long count, int pages, List<T> data) {
         this.count = count;
         this.pages = pages;
         this.data = data;

@@ -5,7 +5,6 @@ import com.wenyu7980.basic.service.organization.company.entity.CompanyEntity;
 import com.wenyu7980.basic.service.organization.department.entity.DepartmentEntity;
 import com.wenyu7980.basic.service.organization.role.entity.RoleEntity;
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.util.List;
@@ -54,6 +53,10 @@ public class UserEntity extends AuditingEntity {
     public UserEntity(String username, String password) {
         this.username = username;
         this.password = password;
+    }
+
+    public void setRoles(List<RoleEntity> roles) {
+        this.roles = roles;
     }
 
     public String getId() {

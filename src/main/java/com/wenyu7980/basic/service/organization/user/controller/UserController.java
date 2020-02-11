@@ -26,7 +26,7 @@ public class UserController {
 
     @ApiOperation("创建用户")
     @ApiResponses({
-            @ApiResponse(code = 200, message = "创建成功"),
+            @ApiResponse(code = 201, message = "创建成功"),
             @ApiResponse(code = 400, message = "创建失败", response = Error.class)
     })
     @PostMapping()

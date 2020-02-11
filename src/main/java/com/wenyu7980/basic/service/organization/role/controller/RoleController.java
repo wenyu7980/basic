@@ -4,10 +4,12 @@ import com.wenyu7980.basic.authorization.util.AuthorizationUtil;
 import com.wenyu7980.basic.exception.code403.InsufficientException;
 import com.wenyu7980.basic.service.organization.role.domain.Role;
 import com.wenyu7980.basic.service.organization.role.domain.RoleAdd;
+import com.wenyu7980.basic.service.organization.role.handler.RoleHandler;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +24,9 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("roles")
 public class RoleController {
+    @Autowired
+    private RoleHandler roleHandler;
+
     @ApiOperation("创建角色")
     @ApiResponses({
             @ApiResponse(code = 201, message = "创建成功")
@@ -32,7 +37,7 @@ public class RoleController {
         if (!AuthorizationUtil.get().getSystem()) {
             throw new InsufficientException("只有系统管理员才可以创建角色");
         }
-        return null;
+        return roleHandler.addRole(role);
     }
 
     @ApiOperation("修改角色")
@@ -46,7 +51,7 @@ public class RoleController {
         if (!AuthorizationUtil.get().getSystem()) {
             throw new InsufficientException("只有系统管理员才可以创建角色");
         }
-        return null;
+        return roleHandler.modifyRole(id, role);
     }
 
     @ApiOperation("删除角色")
@@ -59,5 +64,6 @@ public class RoleController {
         if (!AuthorizationUtil.get().getSystem()) {
             throw new InsufficientException("只有系统管理员才可以创建角色");
         }
+        roleHandler.removeRole(id);
     }
 }

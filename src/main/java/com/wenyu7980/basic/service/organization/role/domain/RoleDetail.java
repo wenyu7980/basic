@@ -4,37 +4,21 @@ import com.wenyu7980.basic.service.organization.permission.domain.Permission;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotEmpty;
-import java.util.HashSet;
 import java.util.Set;
 
 /**
  *
  * @author wenyu
- * @date 2020-02-07 
+ * @date 2020-02-10 
  */
-@ApiModel(description = "角色")
-public class RoleAdd {
-    @ApiModelProperty(name = "角色名", required = true)
-    @NotEmpty
-    private String name;
-    @ApiModelProperty(name = "权限code", required = true)
-    @NotEmpty
-    @Valid
+@ApiModel(description = "角色详情")
+public class RoleDetail extends RoleListDetail {
+    @ApiModelProperty(name = "权限code", accessMode = ApiModelProperty.AccessMode.READ_ONLY)
     private Set<Permission> permissions;
-    @ApiModelProperty(name = "菜单code", required = true)
-    private Set<String> menuCodes = new HashSet<>();
-    @ApiModelProperty(name = "操作code", required = true)
-    private Set<String> operatorCodes = new HashSet<>();
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    @ApiModelProperty(name = "菜单code", accessMode = ApiModelProperty.AccessMode.READ_ONLY)
+    private Set<String> menuCodes;
+    @ApiModelProperty(name = "操作code", accessMode = ApiModelProperty.AccessMode.READ_ONLY)
+    private Set<String> operatorCodes;
 
     public Set<Permission> getPermissions() {
         return permissions;

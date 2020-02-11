@@ -1,5 +1,6 @@
 package com.wenyu7980.basic.service.organization.role.service.impl;
 
+import com.wenyu7980.basic.common.query.QueryService;
 import com.wenyu7980.basic.exception.code404.NotFoundException;
 import com.wenyu7980.basic.service.organization.role.entity.RoleEntity;
 import com.wenyu7980.basic.service.organization.role.repository.RoleRepo;
@@ -13,7 +14,8 @@ import org.springframework.stereotype.Service;
  * @date 2020-01-26 
  */
 @Service
-public class RoleServiceImpl implements RoleService {
+public class RoleServiceImpl extends QueryService<RoleEntity>
+        implements RoleService {
     @Autowired
     private RoleRepo roleRepo;
 
@@ -26,5 +28,10 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public RoleEntity save(RoleEntity entity) {
         return roleRepo.save(entity);
+    }
+
+    @Override
+    public void delete(RoleEntity entity) {
+        roleRepo.delete(entity);
     }
 }
