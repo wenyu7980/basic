@@ -46,7 +46,6 @@ public class LoginHandlerImpl implements LoginHandler {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = RuntimeException.class)
-
     public LoginResult login(Login login) {
         LoginResult result = new LoginResult();
         UserEntity entity = userService.findByUsername(login.getUsername());

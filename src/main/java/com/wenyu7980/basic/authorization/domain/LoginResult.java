@@ -32,6 +32,10 @@ public class LoginResult {
     @ApiModelProperty(value = "操作code", readOnly = true)
     private Set<String> operators;
 
+    public Boolean getSystem() {
+        return system;
+    }
+
     public void setHeaderToken(String headerToken) {
         this.headerToken = headerToken;
     }

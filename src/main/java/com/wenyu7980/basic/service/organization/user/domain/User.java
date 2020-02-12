@@ -4,6 +4,8 @@ import com.wenyu7980.basic.common.auditing.domain.AuditingDomain;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.validation.constraints.NotEmpty;
+
 /**
  * 用户
  * @author wenyu
@@ -11,13 +13,15 @@ import io.swagger.annotations.ApiModelProperty;
  */
 @ApiModel(description = "用户")
 public class User extends AuditingDomain {
-    @ApiModelProperty(value = "用户id", readOnly = true)
+    @ApiModelProperty(value = "用户id", accessMode = ApiModelProperty.AccessMode.READ_ONLY)
     private String id;
-    @ApiModelProperty(value = "用户名")
+    @ApiModelProperty(value = "用户名", required = true)
+    @NotEmpty
     private String username;
-    @ApiModelProperty(value = "用户密码")
+    @ApiModelProperty(value = "用户密码", required = true)
+    @NotEmpty
     private String password;
-    @ApiModelProperty(value = "系统管理员")
+    @ApiModelProperty(value = "系统管理员", accessMode = ApiModelProperty.AccessMode.READ_ONLY)
     private Boolean system;
 
     public String getId() {
