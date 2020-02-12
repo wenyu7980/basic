@@ -7,6 +7,7 @@ import com.wenyu7980.basic.authorization.domain.LoginResult;
 import com.wenyu7980.basic.authorization.entity.TokenEntity;
 import com.wenyu7980.basic.authorization.handler.LoginHandler;
 import com.wenyu7980.basic.authorization.util.PasswordUtil;
+import com.wenyu7980.basic.exception.code400.RequestBodyBadException;
 import com.wenyu7980.basic.exception.code401.LoginFailException;
 import com.wenyu7980.basic.service.organization.department.entity.DepartmentEntity;
 import com.wenyu7980.basic.service.organization.menu.entity.MenuEntity;
@@ -49,6 +50,9 @@ public class LoginHandlerImpl implements LoginHandler {
     public LoginResult login(Login login) {
         LoginResult result = new LoginResult();
         UserEntity entity = userService.findByUsername(login.getUsername());
+        if (entity.getDeletedFlag()) {
+            throw new RequestBodyBadException("用户:{0}已禁用", login.getUsername());
+        }
         if (!Objects.equals(entity.getPassword(),
                 PasswordUtil.encode(login.getPassword()))) {
             throw new LoginFailException("密码不正确");

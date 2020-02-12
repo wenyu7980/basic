@@ -22,6 +22,12 @@ public @interface AuthRequest {
     boolean required() default true;
 
     /**
+     * 是否需要权限校验
+     * @return
+     */
+    boolean check() default true;
+
+    /**
      * 需要token时，token的类型
      * @return
      */

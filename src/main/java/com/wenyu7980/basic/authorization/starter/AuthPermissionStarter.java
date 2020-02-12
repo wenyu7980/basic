@@ -65,7 +65,8 @@ public class AuthPermissionStarter implements CommandLineRunner {
             // controller类中所有方法
             for (Method method : clazz.getDeclaredMethods()) {
                 AuthRequest request = method.getAnnotation(AuthRequest.class);
-                if (Objects.nonNull(request) && !request.required()) {
+                if (Objects.nonNull(request) && !request.required() && !request
+                        .check()) {
                     // 无需权限校验的接口
                     continue;
                 }

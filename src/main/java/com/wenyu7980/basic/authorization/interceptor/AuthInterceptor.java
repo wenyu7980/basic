@@ -64,6 +64,10 @@ public class AuthInterceptor implements HandlerInterceptor {
         TokenEntity tokenEntity = this.tokenService
                 .findOptionalById(requestInfo.token)
                 .orElseThrow(() -> new TokenInvalidException("token已失效"));
+        if (Objects.nonNull(authRequest) && !authRequest.check()) {
+            // 不需要借口权限校验
+            return true;
+        }
         if (strictMode) {
             // 严格模式下校验token类型
             if (Objects.nonNull(authRequest)) {
