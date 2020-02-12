@@ -59,6 +59,10 @@ public class UserEntity extends AuditingEntity {
         this.roles = roles;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public String getId() {
         return id;
     }

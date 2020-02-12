@@ -41,9 +41,8 @@ public class UserQueryController {
     })
     @GetMapping(path = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(code = HttpStatus.OK)
-    public UserDetail getUser(
-            @ApiParam(name = "用户id") @PathVariable("id") String id,
-            @ApiParam(name = "是否查询详情", example = "false", required = false) @RequestParam(value = "detail", required = false, defaultValue = "false") boolean detail) {
+    public UserDetail getUser(@ApiParam("用户id") @PathVariable("id") String id,
+            @ApiParam("是否查询详情") @RequestParam(value = "detail", defaultValue = "false") boolean detail) {
         return queryHandler.getOne(id, detail);
     }
 
@@ -54,9 +53,9 @@ public class UserQueryController {
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(code = HttpStatus.OK)
     public PageBody<UserListDetail> getUsers(
-            @ApiParam(name = "页码", example = "0", required = false) @RequestParam(value = "index", required = false, defaultValue = "0") Integer index,
-            @ApiParam(name = "页大小", example = "20", required = false) @RequestParam(value = "size", required = false, defaultValue = "20") Integer size,
-            @ApiParam(name = "是否查询详情", example = "false", required = false) @RequestParam(value = "detail", required = false, defaultValue = "false") boolean detail) {
+            @ApiParam("页码") @RequestParam(value = "index", defaultValue = "0") Integer index,
+            @ApiParam("页大小") @RequestParam(value = "size", defaultValue = "20") Integer size,
+            @ApiParam("是否查询详情") @RequestParam(value = "detail", defaultValue = "false") boolean detail) {
         return queryHandler.getPage(QueryLogic.and(), PageRequest
                         .of(index, size, Sort.Direction.DESC, "updatedDateTime"),
                 detail);
