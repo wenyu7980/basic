@@ -79,6 +79,9 @@ public class LoginHandlerImpl implements LoginHandler {
         // 确认departmentId
         DepartmentEntity departmentEntity = null;
         for (DepartmentEntity department : departments) {
+            if (department.getDeletedFlag()) {
+                continue;
+            }
             departmentEntity = department;
             departmentId = department.getId();
             if (Objects.equals(department.getId(), departmentId)) {

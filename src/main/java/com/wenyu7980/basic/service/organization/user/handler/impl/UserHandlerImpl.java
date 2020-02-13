@@ -5,7 +5,9 @@ import com.wenyu7980.basic.authorization.util.PasswordUtil;
 import com.wenyu7980.basic.exception.code403.InsufficientException;
 import com.wenyu7980.basic.exception.code409.ExistedException;
 import com.wenyu7980.basic.exception.code409.InconsistentException;
+import com.wenyu7980.basic.service.organization.department.service.DepartmentService;
 import com.wenyu7980.basic.service.organization.user.domain.User;
+import com.wenyu7980.basic.service.organization.user.domain.UserAdd;
 import com.wenyu7980.basic.service.organization.user.domain.UserPassword;
 import com.wenyu7980.basic.service.organization.user.entity.UserEntity;
 import com.wenyu7980.basic.service.organization.user.handler.UserHandler;
@@ -17,6 +19,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -27,17 +30,23 @@ import java.util.Objects;
 public class UserHandlerImpl implements UserHandler {
     @Autowired
     private UserService userService;
+    @Autowired
+    private DepartmentService departmentService;
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = RuntimeException.class)
-    public User addUser(User user) {
+    public User addUser(UserAdd user) {
         // 判断用户名是否已使用
         if (userService.existsByUsername(user.getUsername())) {
             throw new ExistedException("用户名{0}已被使用", user.getUsername());
 
         }
         UserEntity entity = new UserEntity(user.getUsername(),
-                PasswordUtil.encode(user.getPassword()));
+                PasswordUtil.encode(user.getPassword()),
+                user.getDepartmentIds().stream()
+                        .map(departmentId -> departmentService
+                                .findById(departmentId))
+                        .collect(Collectors.toList()));
         return UserMapper.map(userService.save(entity));
     }
 

@@ -50,9 +50,12 @@ public class UserEntity extends AuditingEntity {
     private UserEntity() {
     }
 
-    public UserEntity(String username, String password) {
+    public UserEntity(String username, String password,
+            List<DepartmentEntity> departments) {
         this.username = username;
         this.password = password;
+        this.departments = departments;
+
     }
 
     public void setRoles(List<RoleEntity> roles) {
@@ -61,6 +64,10 @@ public class UserEntity extends AuditingEntity {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void setDepartments(List<DepartmentEntity> departments) {
+        this.departments = departments;
     }
 
     public String getId() {

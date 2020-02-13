@@ -1,6 +1,7 @@
 package com.wenyu7980.basic.service.organization.user.controller;
 
 import com.wenyu7980.basic.service.organization.user.domain.User;
+import com.wenyu7980.basic.service.organization.user.domain.UserAdd;
 import com.wenyu7980.basic.service.organization.user.domain.UserPassword;
 import com.wenyu7980.basic.service.organization.user.handler.UserHandler;
 import io.swagger.annotations.*;
@@ -29,7 +30,7 @@ public class UserController {
     })
     @PostMapping()
     @ResponseStatus(code = HttpStatus.CREATED)
-    public User addUser(@RequestBody @Valid User user) {
+    public User addUser(@RequestBody @Valid UserAdd user) {
         return userHandler.addUser(user);
     }
 

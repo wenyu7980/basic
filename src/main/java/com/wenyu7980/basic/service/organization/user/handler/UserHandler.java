@@ -1,6 +1,7 @@
 package com.wenyu7980.basic.service.organization.user.handler;
 
 import com.wenyu7980.basic.service.organization.user.domain.User;
+import com.wenyu7980.basic.service.organization.user.domain.UserAdd;
 import com.wenyu7980.basic.service.organization.user.domain.UserPassword;
 
 /**
@@ -14,7 +15,7 @@ public interface UserHandler {
      * @param user
      * @return
      */
-    User addUser(User user);
+    User addUser(UserAdd user);
 
     /**
      * 删除用户

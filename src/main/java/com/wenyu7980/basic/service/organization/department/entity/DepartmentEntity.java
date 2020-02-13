@@ -1,5 +1,6 @@
 package com.wenyu7980.basic.service.organization.department.entity;
 
+import com.wenyu7980.basic.common.auditing.entity.AuditingEntity;
 import com.wenyu7980.basic.service.organization.company.entity.CompanyEntity;
 import com.wenyu7980.basic.service.organization.user.entity.UserEntity;
 import org.hibernate.annotations.GenericGenerator;
@@ -15,7 +16,7 @@ import java.util.Objects;
  */
 @Table(name = "sys_department")
 @Entity
-public class DepartmentEntity {
+public class DepartmentEntity extends AuditingEntity {
     @Id
     @GenericGenerator(name = "UUID", strategy = "uuid")
     @GeneratedValue(generator = "UUID")
@@ -45,6 +46,37 @@ public class DepartmentEntity {
             @JoinColumn(name = "department_id")
     }, inverseJoinColumns = { @JoinColumn(name = "user_id") })
     private List<UserEntity> users;
+
+    private DepartmentEntity() {
+    }
+
+    public DepartmentEntity(String name, CompanyEntity company,
+            DepartmentEntity department, List<UserEntity> admins) {
+        this.name = name;
+        this.parent = department;
+        this.company = company;
+        this.admins = admins;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDepartments(List<DepartmentEntity> departments) {
+        this.departments = departments;
+    }
+
+    public void setParent(DepartmentEntity parent) {
+        this.parent = parent;
+    }
+
+    public void setCompany(CompanyEntity company) {
+        this.company = company;
+    }
+
+    public void setAdmins(List<UserEntity> admins) {
+        this.admins = admins;
+    }
 
     public String getId() {
         return id;
