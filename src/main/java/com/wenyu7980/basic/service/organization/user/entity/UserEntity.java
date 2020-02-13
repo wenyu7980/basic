@@ -1,7 +1,6 @@
 package com.wenyu7980.basic.service.organization.user.entity;
 
 import com.wenyu7980.basic.common.auditing.entity.AuditingEntity;
-import com.wenyu7980.basic.service.organization.company.entity.CompanyEntity;
 import com.wenyu7980.basic.service.organization.department.entity.DepartmentEntity;
 import com.wenyu7980.basic.service.organization.role.entity.RoleEntity;
 import org.hibernate.annotations.GenericGenerator;
@@ -43,9 +42,6 @@ public class UserEntity extends AuditingEntity {
     /** 管理的部门 */
     @ManyToMany(mappedBy = "admins")
     private List<DepartmentEntity> adminDepartments;
-    /** 管理的公司 */
-    @OneToMany(mappedBy = "admin")
-    private List<CompanyEntity> companies;
 
     private UserEntity() {
     }
@@ -55,7 +51,6 @@ public class UserEntity extends AuditingEntity {
         this.username = username;
         this.password = password;
         this.departments = departments;
-
     }
 
     public void setRoles(List<RoleEntity> roles) {
@@ -96,10 +91,6 @@ public class UserEntity extends AuditingEntity {
 
     public List<DepartmentEntity> getAdminDepartments() {
         return adminDepartments;
-    }
-
-    public List<CompanyEntity> getCompanies() {
-        return companies;
     }
 
 }

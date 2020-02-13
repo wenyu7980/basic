@@ -1,5 +1,6 @@
 package com.wenyu7980.basic.service.organization.department.handler.impl;
 
+import com.wenyu7980.basic.exception.code409.InconsistentException;
 import com.wenyu7980.basic.service.organization.company.entity.CompanyEntity;
 import com.wenyu7980.basic.service.organization.company.service.CompanyService;
 import com.wenyu7980.basic.service.organization.department.domain.Department;
@@ -51,6 +52,10 @@ public class DepartmentHandlerImp implements DepartmentHandler {
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = RuntimeException.class)
     public void remove(String id) {
         DepartmentEntity entity = departmentService.findById(id);
+        if (entity.getDeletedFlag()) {
+            throw new InconsistentException("部门:{0}已删除，请勿重复删除",
+                    entity.getName());
+        }
         entity.setDeletedFlag(true);
         departmentService.save(entity);
     }
