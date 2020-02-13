@@ -59,6 +59,10 @@ public class RoleEntity extends AuditingEntity {
         this.operators = operators;
     }
 
+    public void setUsers(List<UserEntity> users) {
+        this.users = users;
+    }
+
     public String getId() {
         return id;
     }

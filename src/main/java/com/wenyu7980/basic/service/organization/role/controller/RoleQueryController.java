@@ -32,7 +32,7 @@ public class RoleQueryController {
     @GetMapping("{id}")
     @ResponseStatus(HttpStatus.OK)
     public RoleDetail getRole(@ApiParam("id") @PathVariable("id") String id,
-            @ApiParam(name = "是否查询详情") @RequestParam(value = "detail", defaultValue = "false") boolean detail) {
+            @ApiParam("是否查询详情") @RequestParam(value = "detail", defaultValue = "false") boolean detail) {
         return this.queryHandler.getOne(id, detail);
     }
 
@@ -44,7 +44,7 @@ public class RoleQueryController {
     @ResponseStatus(HttpStatus.OK)
     public PageBody<RoleListDetail> getRoles(
             @ApiParam("页码") @RequestParam(value = "index", defaultValue = "0") Integer index,
-            @ApiParam("页大小") @RequestParam(value = "size", defaultValue = "20") Integer size,
+            @ApiParam("页大") @RequestParam(value = "size", defaultValue = "20") Integer size,
             @ApiParam("是否查询详情") @RequestParam(value = "detail", defaultValue = "false") boolean detail) {
         Pageable pageable = PageRequest
                 .of(index, size, Sort.Direction.DESC, "createdDateTime");
