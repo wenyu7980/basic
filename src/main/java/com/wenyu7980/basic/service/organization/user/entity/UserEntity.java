@@ -23,6 +23,8 @@ public class UserEntity extends AuditingEntity {
     private String id;
     /** 用户名 */
     private String username;
+    /** 用户名称 */
+    private String name;
     /** 密码 */
     private String password;
     /** 系统管理员 */
@@ -46,11 +48,10 @@ public class UserEntity extends AuditingEntity {
     private UserEntity() {
     }
 
-    public UserEntity(String username, String password,
-            List<DepartmentEntity> departments) {
+    public UserEntity(String username, String name, String password) {
         this.username = username;
+        this.name = name;
         this.password = password;
-        this.departments = departments;
     }
 
     public void setRoles(List<RoleEntity> roles) {
@@ -61,16 +62,16 @@ public class UserEntity extends AuditingEntity {
         this.password = password;
     }
 
-    public void setDepartments(List<DepartmentEntity> departments) {
-        this.departments = departments;
-    }
-
     public String getId() {
         return id;
     }
 
     public String getUsername() {
         return username;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public String getPassword() {

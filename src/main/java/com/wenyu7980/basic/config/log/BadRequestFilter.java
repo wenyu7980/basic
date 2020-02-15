@@ -85,8 +85,9 @@ public class BadRequestFilter extends HttpFilter {
         Map<String, String[]> parameters = request.getParameterMap();
         LOGGER.warn("方法:{},路径:{},查询参数:{},请求BODY:{}", request.getMethod(),
                 request.getServletPath(), parameters.entrySet().stream()
-                        .map((entry) -> entry.getKey() + ":" + entry.getValue()
-                                .toString()).collect(Collectors.joining(",")),
+                        .map((entry) -> entry.getKey() + ":" + String
+                                .join(",", entry.getValue()))
+                        .collect(Collectors.joining(",")),
                 IOUtils.toString(request.getInputStream(),
                         Charset.defaultCharset()).replaceAll("\\r|\\n", ""));
     }

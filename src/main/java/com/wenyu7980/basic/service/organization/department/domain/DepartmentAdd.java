@@ -5,8 +5,6 @@ import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  *
@@ -19,9 +17,6 @@ public class DepartmentAdd {
     @NotEmpty
     @Size(max = 255, min = 2)
     private String name;
-    @ApiModelProperty(name = "管理员id")
-    @NotEmpty
-    private Set<String> adminIds = new HashSet<>();
     @ApiModelProperty(name = "公司id", required = true)
     @NotEmpty
     private String companyId;
@@ -34,14 +29,6 @@ public class DepartmentAdd {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Set<String> getAdminIds() {
-        return adminIds;
-    }
-
-    public void setAdminIds(Set<String> adminIds) {
-        this.adminIds = adminIds;
     }
 
     public String getCompanyId() {

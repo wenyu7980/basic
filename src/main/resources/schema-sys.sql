@@ -30,7 +30,8 @@ COMMENT 'TOKEN表';
 -- 用户表
 CREATE TABLE `sys_user`(
   `id` varchar(32) NOT NULL COMMENT '用户id',
-  `username` varchar(64) NOT NULL COMMENT '用户名',
+  `username` varchar(18) NOT NULL COMMENT '用户名',
+  `name` varchar(18) NOT NULL COMMENT '用户名称',
   `password` varchar(32) NOT NULL COMMENT '密码',
   `system` int(1) NOT NULL DEFAULT 0 COMMENT '系统管理员',
   `created_user_id` varchar(32) COMMENT '创建者',

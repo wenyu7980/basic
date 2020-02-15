@@ -19,6 +19,7 @@ public class UserMapper {
         user.setId(entity.getId());
         user.setUsername(entity.getUsername());
         user.setSystem(entity.getSystem());
+        user.setName(entity.getName());
         AuditingMapper.mapTo(entity, user);
     }
 
@@ -32,6 +33,7 @@ public class UserMapper {
         UserSimple simple = new UserSimple();
         simple.setId(entity.getId());
         simple.setUsername(entity.getUsername());
+        simple.setName(entity.getName());
         return simple;
     }
 }

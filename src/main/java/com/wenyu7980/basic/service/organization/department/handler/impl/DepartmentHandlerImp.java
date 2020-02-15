@@ -7,15 +7,20 @@ import com.wenyu7980.basic.service.organization.department.domain.Department;
 import com.wenyu7980.basic.service.organization.department.domain.DepartmentAdd;
 import com.wenyu7980.basic.service.organization.department.entity.DepartmentEntity;
 import com.wenyu7980.basic.service.organization.department.handler.DepartmentHandler;
+import com.wenyu7980.basic.service.organization.department.handler.DepartmentUserHandler;
 import com.wenyu7980.basic.service.organization.department.mapper.DepartmentMapper;
 import com.wenyu7980.basic.service.organization.department.service.DepartmentService;
+import com.wenyu7980.basic.service.organization.user.domain.User;
+import com.wenyu7980.basic.service.organization.user.mapper.UserMapper;
 import com.wenyu7980.basic.service.organization.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -24,7 +29,8 @@ import java.util.stream.Collectors;
  * @date 2020-02-13 
  */
 @Component
-public class DepartmentHandlerImp implements DepartmentHandler {
+public class DepartmentHandlerImp
+        implements DepartmentHandler, DepartmentUserHandler {
     @Autowired
     private DepartmentService departmentService;
     @Autowired
@@ -42,9 +48,7 @@ public class DepartmentHandlerImp implements DepartmentHandler {
             parent = departmentService.findById(department.getParentId());
         }
         DepartmentEntity entity = new DepartmentEntity(department.getName(),
-                companyEntity, parent, department.getAdminIds().stream()
-                .map(id -> userService.findById(id))
-                .collect(Collectors.toList()));
+                companyEntity, parent);
         return DepartmentMapper.map(departmentService.save(entity));
     }
 
@@ -61,19 +65,48 @@ public class DepartmentHandlerImp implements DepartmentHandler {
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = RuntimeException.class)
     public Department modify(String id, DepartmentAdd department) {
         DepartmentEntity entity = departmentService.findById(id);
         CompanyEntity companyEntity = companyService
                 .findById(department.getCompanyId());
         entity.setCompany(companyEntity);
-        entity.setAdmins(department.getAdminIds().stream()
-                .map(userId -> userService.findById(userId))
-                .collect(Collectors.toList()));
         DepartmentEntity parent = null;
         if (Objects.nonNull(department.getParentId())) {
             parent = departmentService.findById(department.getParentId());
         }
         entity.setParent(parent);
+        return DepartmentMapper.map(departmentService.save(entity));
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = RuntimeException.class)
+    public Department modifyUser(String id, Set<String> userIds) {
+        DepartmentEntity entity = departmentService.findById(id);
+        entity.setUsers(
+                userIds.stream().map(userId -> userService.findById(userId))
+                        .collect(Collectors.toList()));
+        return DepartmentMapper.map(departmentService.save(entity));
+    }
+
+    @Override
+    public List<User> getUserByDepartment(String id) {
+        return departmentService.findById(id).getUsers().stream()
+                .map(UserMapper::map).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<User> getAdminByDepartment(String id) {
+        return departmentService.findById(id).getAdmins().stream()
+                .map(UserMapper::map).collect(Collectors.toList());
+    }
+
+    @Override
+    public Department modifyAdmin(String id, Set<String> userIds) {
+        DepartmentEntity entity = departmentService.findById(id);
+        entity.setAdmins(
+                userIds.stream().map(userId -> userService.findById(userId))
+                        .collect(Collectors.toList()));
         return DepartmentMapper.map(departmentService.save(entity));
     }
 }

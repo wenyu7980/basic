@@ -15,6 +15,8 @@ public class User extends AuditingDomain {
     private String id;
     @ApiModelProperty(value = "用户名", accessMode = ApiModelProperty.AccessMode.READ_ONLY)
     private String username;
+    @ApiModelProperty(value = "用户名称", accessMode = ApiModelProperty.AccessMode.READ_ONLY)
+    private String name;
     @ApiModelProperty(value = "系统管理员", accessMode = ApiModelProperty.AccessMode.READ_ONLY)
     private Boolean system;
 
@@ -32,6 +34,14 @@ public class User extends AuditingDomain {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Boolean getSystem() {

@@ -13,10 +13,10 @@ import java.util.Objects;
  */
 @ApiModel(description = "权限")
 public class Permission {
-    @ApiModelProperty(name = "请求方法", required = true, allowableValues = "POST,GET,HEAD,DELETE,PUT", readOnly = true)
+    @ApiModelProperty(name = "请求方法", required = true)
     @NotEmpty
     private String method;
-    @ApiModelProperty(name = "路径", readOnly = true)
+    @ApiModelProperty(name = "路径", required = true)
     @NotEmpty
     private String path;
     @ApiModelProperty(name = "权限名", readOnly = true)

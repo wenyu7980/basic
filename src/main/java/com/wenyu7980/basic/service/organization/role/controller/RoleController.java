@@ -5,8 +5,6 @@ import com.wenyu7980.basic.service.organization.role.domain.RoleAdd;
 import com.wenyu7980.basic.service.organization.role.handler.RoleHandler;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -26,9 +24,6 @@ public class RoleController {
     private RoleHandler roleHandler;
 
     @ApiOperation("创建角色")
-    @ApiResponses({
-            @ApiResponse(code = 201, message = "创建成功")
-    })
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Role addRole(@RequestBody @Valid RoleAdd role) {
@@ -36,10 +31,7 @@ public class RoleController {
     }
 
     @ApiOperation("修改角色")
-    @ApiResponses({
-            @ApiResponse(code = 201, message = "修改成功")
-    })
-    @PutMapping(path = "{id}")
+    @PutMapping("{id}")
     @ResponseStatus(HttpStatus.CREATED)
     public Role modifyRole(@PathVariable(name = "id") String id,
             @RequestBody @Valid RoleAdd role) {
@@ -47,10 +39,7 @@ public class RoleController {
     }
 
     @ApiOperation("删除角色")
-    @ApiResponses({
-            @ApiResponse(code = 204, message = "创建成功")
-    })
-    @DeleteMapping(path = "{id}")
+    @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void removeRole(@PathVariable(name = "id") String id) {
         roleHandler.removeRole(id);

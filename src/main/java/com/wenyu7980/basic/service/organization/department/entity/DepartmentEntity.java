@@ -51,19 +51,18 @@ public class DepartmentEntity extends AuditingEntity {
     }
 
     public DepartmentEntity(String name, CompanyEntity company,
-            DepartmentEntity department, List<UserEntity> admins) {
+            DepartmentEntity department) {
         this.name = name;
         this.parent = department;
         this.company = company;
-        this.admins = admins;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setDepartments(List<DepartmentEntity> departments) {
-        this.departments = departments;
+    public void setUsers(List<UserEntity> users) {
+        this.users = users;
     }
 
     public void setParent(DepartmentEntity parent) {

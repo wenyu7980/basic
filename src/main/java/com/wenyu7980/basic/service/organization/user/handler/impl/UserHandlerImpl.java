@@ -19,7 +19,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 /**
  *
@@ -41,12 +40,8 @@ public class UserHandlerImpl implements UserHandler {
             throw new ExistedException("用户名{0}已被使用", user.getUsername());
 
         }
-        UserEntity entity = new UserEntity(user.getUsername(),
-                PasswordUtil.encode(user.getPassword()),
-                user.getDepartmentIds().stream()
-                        .map(departmentId -> departmentService
-                                .findById(departmentId))
-                        .collect(Collectors.toList()));
+        UserEntity entity = new UserEntity(user.getUsername(), user.getName(),
+                PasswordUtil.encode(user.getPassword()));
         return UserMapper.map(userService.save(entity));
     }
 
