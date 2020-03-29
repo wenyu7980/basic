@@ -3,7 +3,7 @@ package com.wenyu7980.basic.service.organization.role.controller;
 import com.wenyu7980.basic.common.query.PageBody;
 import com.wenyu7980.basic.service.organization.role.domain.RoleDetail;
 import com.wenyu7980.basic.service.organization.role.domain.RoleListDetail;
-import com.wenyu7980.basic.service.organization.role.handler.impl.RoleQueryHandler;
+import com.wenyu7980.basic.service.organization.role.handler.RoleQueryHandler;
 import com.wenyu7980.query.QueryLogic;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;

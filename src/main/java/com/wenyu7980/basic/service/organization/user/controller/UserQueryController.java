@@ -7,7 +7,7 @@ import com.wenyu7980.basic.common.query.QuerySearchName;
 import com.wenyu7980.basic.common.query.QuerySearchUtil;
 import com.wenyu7980.basic.service.organization.user.domain.UserDetail;
 import com.wenyu7980.basic.service.organization.user.domain.UserListDetail;
-import com.wenyu7980.basic.service.organization.user.handler.impl.UserQueryHandler;
+import com.wenyu7980.basic.service.organization.user.handler.UserQueryHandler;
 import com.wenyu7980.query.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -35,14 +35,8 @@ public class UserQueryController {
     @ApiOperation("用户查询")
     @GetMapping(path = "{id}")
     @ResponseStatus(code = HttpStatus.OK)
-<<<<<<< HEAD
     public UserDetail getUser(@ApiParam("用户id") @PathVariable("id") String id,
             @ApiParam("是否查询详情") @RequestParam(value = "detail", defaultValue = "false") boolean detail) {
-=======
-    public UserDetail getUser(
-            @ApiParam(name = "用户id") @PathVariable("id") String id,
-            @ApiParam(name = "是否查询详情", example = "false", required = false) @RequestParam(value = "detail", required = false, defaultValue = "false") boolean detail) {
->>>>>>> master
         return queryHandler.getOne(id, detail);
     }
 
@@ -50,7 +44,6 @@ public class UserQueryController {
     @GetMapping()
     @ResponseStatus(code = HttpStatus.OK)
     public PageBody<UserListDetail> getUsers(
-<<<<<<< HEAD
             @ApiParam("所属部门id") @RequestParam(value = "departmentId", required = false) String departmentId,
             @ApiParam("所属管理部门id") @RequestParam(value = "adminDepartmentId", required = false) String adminDepartmentId,
             @ApiParam("页码") @RequestParam(value = "index", defaultValue = "0") Integer index,
@@ -62,14 +55,6 @@ public class UserQueryController {
                         .of("id", QueryCompare.EQ, adminDepartmentId))),
                 PageRequest.of(index, size, Sort.Direction.DESC,
                         "updatedDateTime"), detail);
-=======
-            @ApiParam(name = "页码", example = "0", required = false) @RequestParam(value = "index", required = false, defaultValue = "0") Integer index,
-            @ApiParam(name = "页大小", example = "20", required = false) @RequestParam(value = "size", required = false, defaultValue = "20") Integer size,
-            @ApiParam(name = "是否查询详情", example = "false", required = false) @RequestParam(value = "detail", required = false, defaultValue = "false") boolean detail) {
-        return queryHandler.getAll(QueryLogic.and(), PageRequest
-                        .of(index, size, Sort.Direction.DESC, "updatedDateTime"),
-                detail);
->>>>>>> master
     }
 
     @ApiOperation("用户列表查询")
@@ -83,11 +68,7 @@ public class UserQueryController {
             @RequestBody @Valid QuerySearch<UserSearchName> search) {
         QueryPredicateExpress express = QuerySearchUtil
                 .toPredicateExpress(search);
-<<<<<<< HEAD
         return queryHandler.getPage(express, PageRequest
-=======
-        return queryHandler.getAll(express, PageRequest
->>>>>>> master
                         .of(index, size, Sort.Direction.DESC, "updatedDateTime"),
                 detail);
     }
@@ -97,7 +78,7 @@ public class UserQueryController {
             @Override
             public QueryPredicateExpress queryExpress(QueryCompare compare,
                     Object object) {
-                return QueryCondition. of("username", compare,
+                return QueryCondition.of("username", compare,
                         object == null ? null : object.toString());
             }
         };

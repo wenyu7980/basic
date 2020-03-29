@@ -16,8 +16,8 @@ public abstract class UserQueryHandler
     /**
      * 用户查询
      * @param userId
-     * @param detail
+     * @param detailFlag
      * @return
      */
-    public abstract UserDetail getOne(String userId, boolean detail);
+    public abstract UserDetail getOne(String userId, boolean detailFlag);
 }

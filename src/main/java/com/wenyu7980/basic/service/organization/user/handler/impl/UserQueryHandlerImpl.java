@@ -1,6 +1,5 @@
 package com.wenyu7980.basic.service.organization.user.handler.impl;
 
-import com.wenyu7980.basic.common.query.QueryService;
 import com.wenyu7980.basic.service.organization.user.domain.UserDetail;
 import com.wenyu7980.basic.service.organization.user.domain.UserListDetail;
 import com.wenyu7980.basic.service.organization.user.entity.UserEntity;
@@ -19,18 +18,19 @@ import org.springframework.stereotype.Component;
 public class UserQueryHandlerImpl extends UserQueryHandler {
     @Autowired
     private UserService userService;
-    @Autowired
-    private QueryService<UserEntity> queryService;
 
     @Override
-    public UserDetail getOne(String userId, boolean detail) {
-        return new UserDetail(new UserListDetail(
-                UserMapper.map(userService.findById(userId))));
+    public UserDetail getOne(String userId, boolean detailFlag) {
+        UserDetail detail = new UserDetail();
+        UserMapper.map(userService.findById(userId), detail);
+        return detail;
     }
 
     @Override
     protected UserListDetail mapList(UserEntity entity, boolean detailFlag) {
-        return new UserListDetail(UserMapper.map(entity));
+        UserListDetail detail = new UserListDetail();
+        UserMapper.map(entity, detail);
+        return detail;
     }
 
 }
