@@ -44,7 +44,7 @@ public class UserQueryController {
     public UserDetail getUser(
             @ApiParam(name = "用户id") @PathVariable("id") String id,
             @ApiParam(name = "是否查询详情", example = "false", required = false) @RequestParam(value = "detail", required = false, defaultValue = "false") boolean detail) {
-        return queryHandler.getUser(id, detail);
+        return queryHandler.getOne(id, detail);
     }
 
     @ApiOperation("用户列表查询")
@@ -57,7 +57,7 @@ public class UserQueryController {
             @ApiParam(name = "页码", example = "0", required = false) @RequestParam(value = "index", required = false, defaultValue = "0") Integer index,
             @ApiParam(name = "页大小", example = "20", required = false) @RequestParam(value = "size", required = false, defaultValue = "20") Integer size,
             @ApiParam(name = "是否查询详情", example = "false", required = false) @RequestParam(value = "detail", required = false, defaultValue = "false") boolean detail) {
-        return queryHandler.getUsers(QueryLogic.and(), PageRequest
+        return queryHandler.getAll(QueryLogic.and(), PageRequest
                         .of(index, size, Sort.Direction.DESC, "updatedDateTime"),
                 detail);
     }
@@ -76,7 +76,7 @@ public class UserQueryController {
             @RequestBody @Valid QuerySearch<UserSearchName> search) {
         QueryPredicateExpress express = QuerySearchUtil
                 .toPredicateExpress(search);
-        return queryHandler.getUsers(express, PageRequest
+        return queryHandler.getAll(express, PageRequest
                         .of(index, size, Sort.Direction.DESC, "updatedDateTime"),
                 detail);
     }
