@@ -18,6 +18,22 @@ public abstract class QueryHandler<E, L> {
     private QueryService<E> queryService;
 
     /**
+<<<<<<< HEAD
+=======
+     * 查询分页
+     * @param express
+     * @param pageable
+     * @param detail
+     * @return
+     */
+    public PageBody<L> getPage(QueryPredicateExpress express, Pageable pageable,
+            boolean detail) {
+        return PageBody.of(queryService.findAll(express, pageable),
+                e -> this.mapList(e, detail));
+    }
+
+    /**
+>>>>>>> 31636b3... 优化查询
      * 排序查询
      * @param express
      * @param sort
@@ -29,19 +45,6 @@ public abstract class QueryHandler<E, L> {
         return queryService.findAll(express).stream()
                 .map(e -> this.mapList(e, detailFlag))
                 .collect(Collectors.toList());
-    }
-
-    /**
-     * 分页查询
-     * @param express
-     * @param pageable
-     * @param detailFlag
-     * @return
-     */
-    public PageBody<L> getAll(final QueryPredicateExpress express,
-            final Pageable pageable, final boolean detailFlag) {
-        return PageBody.of(queryService.findAll(express, pageable),
-                e -> this.mapList(e, detailFlag));
     }
 
     /**
