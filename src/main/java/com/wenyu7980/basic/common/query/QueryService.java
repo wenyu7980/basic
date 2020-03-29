@@ -33,6 +33,12 @@ public abstract class QueryService<T> {
                 });
     }
 
+    /**
+     * 查询所有
+     * @param express
+     * @param sort
+     * @return
+     */
     public List<T> findAll(QueryPredicateExpress express, Sort sort) {
         return this.executor.findAll(
                 (Root<T> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) -> {
@@ -40,11 +46,29 @@ public abstract class QueryService<T> {
                 }, sort);
     }
 
+    /**
+     * 查询分页
+     * @param express
+     * @param pageable
+     * @return
+     */
     public Page<T> findAll(QueryPredicateExpress express, Pageable pageable) {
         return this.executor.findAll(
                 (Root<T> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) -> {
                     return express.predicate(root, criteriaBuilder);
                 }, pageable);
+    }
+
+    /**
+     * 个数
+     * @param express
+     * @return
+     */
+    public long count(QueryPredicateExpress express) {
+        return this.executor
+                .count((Root<T> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) -> {
+                    return express.predicate(root, criteriaBuilder);
+                });
     }
 
 }

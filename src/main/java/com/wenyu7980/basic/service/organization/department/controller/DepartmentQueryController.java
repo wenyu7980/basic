@@ -3,7 +3,7 @@ package com.wenyu7980.basic.service.organization.department.controller;
 import com.wenyu7980.basic.common.query.PageBody;
 import com.wenyu7980.basic.service.organization.department.domain.DepartmentDetail;
 import com.wenyu7980.basic.service.organization.department.domain.DepartmentListDetail;
-import com.wenyu7980.basic.service.organization.department.handler.impl.DepartmentQueryHandler;
+import com.wenyu7980.basic.service.organization.department.handler.DepartmentQueryHandler;
 import com.wenyu7980.query.QueryCompare;
 import com.wenyu7980.query.QueryCondition;
 import com.wenyu7980.query.QueryJoin;
