@@ -64,6 +64,10 @@ public class AuthInterceptor implements HandlerInterceptor {
         TokenEntity tokenEntity = this.tokenService
                 .findOptionalById(requestInfo.token)
                 .orElseThrow(() -> new TokenInvalidException("token已失效"));
+        if (Objects.nonNull(authRequest) && !authRequest.check()) {
+            // 不需要借口权限校验
+            return true;
+        }
         if (strictMode) {
             // 严格模式下校验token类型
             if (Objects.nonNull(authRequest)) {
@@ -87,17 +91,16 @@ public class AuthInterceptor implements HandlerInterceptor {
             this.tokenService.save(tokenEntity);
             throw new TokenInvalidException("token已失效");
         }
-        if (tokenEntity.getSystem()) {
-            // 超级管理员不做权限校验
-            return true;
-        }
-        PermissionEntity permission = authComponent
-                .getPermissionByRequest(request.getMethod(),
-                        request.getServletPath());
-        if (!authComponent.getPermissions(tokenEntity.getUserId())
-                .contains(permission)) {
-            throw new InsufficientException("权限不足，没有访问{0}的权限",
-                    permission.getPath());
+        if (!tokenEntity.getSystem()) {
+            // 非超级管理员做权限校验
+            PermissionEntity permission = authComponent
+                    .getPermissionByRequest(request.getMethod(),
+                            request.getServletPath());
+            if (!authComponent.getPermissions(tokenEntity.getUserId())
+                    .contains(permission)) {
+                throw new InsufficientException("权限不足，没有访问{0}的权限",
+                        permission.getPath());
+            }
         }
         AuthorizationUtil.set(new RequestUser(tokenEntity.getUserId(),
                 tokenEntity.getDepartmentId(), tokenEntity.getCompanyId(),

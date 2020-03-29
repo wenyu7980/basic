@@ -19,7 +19,7 @@ import java.util.List;
 @Entity
 public class RoleEntity extends AuditingEntity {
     @Id
-    @GenericGenerator(name = "UUID", strategy = "uuid")
+    @GenericGenerator(name = "UUID", strategy = "uuid32")
     @GeneratedValue(generator = "UUID")
     private String id;
     /** 角色名 */
@@ -57,6 +57,10 @@ public class RoleEntity extends AuditingEntity {
 
     public void setOperators(List<OperatorEntity> operators) {
         this.operators = operators;
+    }
+
+    public void setUsers(List<UserEntity> users) {
+        this.users = users;
     }
 
     public String getId() {

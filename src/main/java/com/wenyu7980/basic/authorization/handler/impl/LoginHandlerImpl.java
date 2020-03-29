@@ -7,6 +7,7 @@ import com.wenyu7980.basic.authorization.domain.LoginResult;
 import com.wenyu7980.basic.authorization.entity.TokenEntity;
 import com.wenyu7980.basic.authorization.handler.LoginHandler;
 import com.wenyu7980.basic.authorization.util.PasswordUtil;
+import com.wenyu7980.basic.exception.code400.RequestBodyBadException;
 import com.wenyu7980.basic.exception.code401.LoginFailException;
 import com.wenyu7980.basic.service.organization.department.entity.DepartmentEntity;
 import com.wenyu7980.basic.service.organization.menu.entity.MenuEntity;
@@ -46,10 +47,12 @@ public class LoginHandlerImpl implements LoginHandler {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = RuntimeException.class)
-
     public LoginResult login(Login login) {
         LoginResult result = new LoginResult();
         UserEntity entity = userService.findByUsername(login.getUsername());
+        if (entity.getDeletedFlag()) {
+            throw new RequestBodyBadException("用户:{0}已禁用", login.getUsername());
+        }
         if (!Objects.equals(entity.getPassword(),
                 PasswordUtil.encode(login.getPassword()))) {
             throw new LoginFailException("密码不正确");
@@ -76,6 +79,9 @@ public class LoginHandlerImpl implements LoginHandler {
         // 确认departmentId
         DepartmentEntity departmentEntity = null;
         for (DepartmentEntity department : departments) {
+            if (department.getDeletedFlag()) {
+                continue;
+            }
             departmentEntity = department;
             departmentId = department.getId();
             if (Objects.equals(department.getId(), departmentId)) {
@@ -85,7 +91,9 @@ public class LoginHandlerImpl implements LoginHandler {
         // 获取新的token
         Map<TokenType, String> tokens = tokenComponent
                 .getTokens(entity.getId(), departmentId,
-                        departmentEntity.getCompanyId().orElse(null),
+                        departmentEntity == null ?
+                                null :
+                                departmentEntity.getCompanyId(),
                         entity.getSystem(), entity.getUsername());
         result.setUser(UserMapper.simpleMap(entity));
         result.setHeaderToken(tokens.get(TokenType.HEADER));

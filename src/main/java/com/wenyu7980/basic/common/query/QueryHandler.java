@@ -18,8 +18,6 @@ public abstract class QueryHandler<E, L> {
     private QueryService<E> queryService;
 
     /**
-<<<<<<< HEAD
-=======
      * 查询分页
      * @param express
      * @param pageable
@@ -33,7 +31,6 @@ public abstract class QueryHandler<E, L> {
     }
 
     /**
->>>>>>> 31636b3... 优化查询
      * 排序查询
      * @param express
      * @param sort

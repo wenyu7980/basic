@@ -1,11 +1,10 @@
 package com.wenyu7980.basic.service.organization.permission.controller;
 
+import com.wenyu7980.basic.authorization.annotation.AuthRequest;
 import com.wenyu7980.basic.service.organization.permission.domain.Permission;
 import com.wenyu7980.basic.service.organization.permission.handler.PermissionQueryHandler;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,11 +27,9 @@ public class PermissionQueryController {
     private PermissionQueryHandler queryHandler;
 
     @ApiOperation("权限列表查询")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "查询成功")
-    })
     @GetMapping()
     @ResponseStatus(code = HttpStatus.OK)
+    @AuthRequest(required = false)
     public List<Permission> getPermission() {
         return queryHandler.getPermissions();
     }

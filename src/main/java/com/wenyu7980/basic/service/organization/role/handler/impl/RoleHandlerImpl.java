@@ -50,12 +50,26 @@ public class RoleHandlerImpl implements RoleHandler {
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = RuntimeException.class)
     public Role modifyRole(String id, RoleAdd role) {
-        return null;
+        RoleEntity entity = roleService.findById(id);
+        entity.setName(role.getName());
+        entity.setPermissions(role.getPermissions().stream()
+                .map(permission -> this.permissionService
+                        .findByMethodAndPath(permission.getMethod(),
+                                permission.getPath()))
+                .collect(Collectors.toList()));
+        entity.setMenus(role.getMenuCodes().stream()
+                .map(code -> new MenuEntity(entity, code))
+                .collect(Collectors.toList()));
+        entity.setOperators(role.getOperatorCodes().stream()
+                .map(code -> new OperatorEntity(entity, code))
+                .collect(Collectors.toList()));
+        return RoleMapper.map(this.roleService.save(entity));
     }
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = RuntimeException.class)
     public void removeRole(String id) {
-
+        RoleEntity entity = roleService.findById(id);
+        roleService.delete(entity);
     }
 }

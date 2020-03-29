@@ -1,7 +1,7 @@
 package com.wenyu7980.basic.service.organization.company.entity;
 
+import com.wenyu7980.basic.common.auditing.entity.AuditingEntity;
 import com.wenyu7980.basic.service.organization.department.entity.DepartmentEntity;
-import com.wenyu7980.basic.service.organization.user.entity.UserEntity;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -14,7 +14,7 @@ import java.util.List;
  */
 @Table(name = "sys_company")
 @Entity
-public class CompanyEntity {
+public class CompanyEntity extends AuditingEntity {
     @Id
     @GenericGenerator(name = "UUID", strategy = "uuid")
     @GeneratedValue(generator = "UUID")
@@ -24,10 +24,17 @@ public class CompanyEntity {
     /** 公司部门 */
     @OneToMany(mappedBy = "company")
     private List<DepartmentEntity> departments;
-    /** 公司管理员 */
-    @ManyToOne
-    @JoinColumn(name = "admin_id")
-    private UserEntity admin;
+
+    private CompanyEntity() {
+    }
+
+    public CompanyEntity(String name) {
+        this.name = name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getId() {
         return id;
@@ -41,7 +48,4 @@ public class CompanyEntity {
         return departments;
     }
 
-    public UserEntity getAdmin() {
-        return admin;
-    }
 }

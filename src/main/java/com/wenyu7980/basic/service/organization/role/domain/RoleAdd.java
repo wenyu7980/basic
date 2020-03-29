@@ -4,7 +4,9 @@ import com.wenyu7980.basic.service.organization.permission.domain.Permission;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -19,13 +21,12 @@ public class RoleAdd {
     private String name;
     @ApiModelProperty(name = "权限code", required = true)
     @NotEmpty
+    @Valid
     private Set<Permission> permissions;
     @ApiModelProperty(name = "菜单code", required = true)
-    @NotEmpty
-    private Set<String> menuCodes;
+    private Set<String> menuCodes = new HashSet<>();
     @ApiModelProperty(name = "操作code", required = true)
-    @NotEmpty
-    private Set<String> operatorCodes;
+    private Set<String> operatorCodes = new HashSet<>();
 
     public String getName() {
         return name;

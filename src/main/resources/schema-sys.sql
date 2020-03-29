@@ -30,7 +30,8 @@ COMMENT 'TOKEN表';
 -- 用户表
 CREATE TABLE `sys_user`(
   `id` varchar(32) NOT NULL COMMENT '用户id',
-  `username` varchar(64) NOT NULL COMMENT '用户名',
+  `username` varchar(18) NOT NULL COMMENT '用户名',
+  `name` varchar(18) NOT NULL COMMENT '用户名称',
   `password` varchar(32) NOT NULL COMMENT '密码',
   `system` int(1) NOT NULL DEFAULT 0 COMMENT '系统管理员',
   `created_user_id` varchar(32) COMMENT '创建者',
@@ -49,7 +50,13 @@ COMMENT '用户表';
 CREATE TABLE `sys_company`(
   `id` varchar(32) NOT NULL COMMENT '公司id',
   `name` varchar(255) NOT NULL COMMENT '名称',
-  `admin_id` varchar(32) COMMENT '公司管理员id',
+  `created_user_id` varchar(32) COMMENT '创建者',
+  `created_date_time` datetime COMMENT '创建时间',
+  `updated_user_id` varchar(32) COMMENT '更新者',
+  `updated_date_time` datetime COMMENT '更新时间时间',
+  `deleted_flag` int(1) NOT NULL DEFAULT 0 COMMENT '删除标志',
+  `deleted_user_id` varchar(32) COMMENT '删除者',
+  `deleted_date_time` datetime COMMENT '删除时间',
   primary key(`id`)
 )
 ENGINE=innodb DEFAULT CHARACTER SET utf8mb4
@@ -61,6 +68,13 @@ CREATE TABLE `sys_department`(
   `name` varchar(255) NOT NULL COMMENT '名称',
   `parent_id` varchar(32) COMMENT '上级部门id',
   `company_id` varchar(32) NOT NULL COMMENT '所属公司id',
+  `created_user_id` varchar(32) COMMENT '创建者',
+  `created_date_time` datetime COMMENT '创建时间',
+  `updated_user_id` varchar(32) COMMENT '更新者',
+  `updated_date_time` datetime COMMENT '更新时间时间',
+  `deleted_flag` int(1) NOT NULL DEFAULT 0 COMMENT '删除标志',
+  `deleted_user_id` varchar(32) COMMENT '删除者',
+  `deleted_date_time` datetime COMMENT '删除时间',
   primary key(`id`)
 )
 ENGINE=innodb DEFAULT CHARACTER SET utf8mb4

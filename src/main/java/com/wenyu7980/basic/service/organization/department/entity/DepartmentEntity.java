@@ -1,5 +1,6 @@
 package com.wenyu7980.basic.service.organization.department.entity;
 
+import com.wenyu7980.basic.common.auditing.entity.AuditingEntity;
 import com.wenyu7980.basic.service.organization.company.entity.CompanyEntity;
 import com.wenyu7980.basic.service.organization.user.entity.UserEntity;
 import org.hibernate.annotations.GenericGenerator;
@@ -7,7 +8,6 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 /**
  * 部门
@@ -16,7 +16,7 @@ import java.util.Optional;
  */
 @Table(name = "sys_department")
 @Entity
-public class DepartmentEntity {
+public class DepartmentEntity extends AuditingEntity {
     @Id
     @GenericGenerator(name = "UUID", strategy = "uuid")
     @GeneratedValue(generator = "UUID")
@@ -47,6 +47,36 @@ public class DepartmentEntity {
     }, inverseJoinColumns = { @JoinColumn(name = "user_id") })
     private List<UserEntity> users;
 
+    private DepartmentEntity() {
+    }
+
+    public DepartmentEntity(String name, CompanyEntity company,
+            DepartmentEntity department) {
+        this.name = name;
+        this.parent = department;
+        this.company = company;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setUsers(List<UserEntity> users) {
+        this.users = users;
+    }
+
+    public void setParent(DepartmentEntity parent) {
+        this.parent = parent;
+    }
+
+    public void setCompany(CompanyEntity company) {
+        this.company = company;
+    }
+
+    public void setAdmins(List<UserEntity> admins) {
+        this.admins = admins;
+    }
+
     public String getId() {
         return id;
     }
@@ -67,10 +97,8 @@ public class DepartmentEntity {
         return company;
     }
 
-    public Optional<String> getCompanyId() {
-        return getCompany() == null ?
-                Optional.empty() :
-                Optional.of(getCompany().getId());
+    public String getCompanyId() {
+        return getCompany().getId();
     }
 
     public List<UserEntity> getAdmins() {

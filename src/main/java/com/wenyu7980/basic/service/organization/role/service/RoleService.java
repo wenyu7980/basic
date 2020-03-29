@@ -9,4 +9,9 @@ import com.wenyu7980.basic.service.organization.role.entity.RoleEntity;
  * @date 2020-01-26 
  */
 public interface RoleService extends CommonService<RoleEntity, String> {
+    /**
+     * 删除
+     * @param entity
+     */
+    void delete(RoleEntity entity);
 }

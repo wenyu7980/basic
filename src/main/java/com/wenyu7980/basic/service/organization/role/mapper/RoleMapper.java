@@ -15,9 +15,13 @@ public class RoleMapper {
 
     public static Role map(RoleEntity entity) {
         Role role = new Role();
+        map(entity, role);
+        return role;
+    }
+
+    public static void map(RoleEntity entity, Role role) {
         role.setId(entity.getId());
         role.setName(entity.getName());
         AuditingMapper.mapTo(entity, role);
-        return role;
     }
 }

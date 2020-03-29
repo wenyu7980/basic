@@ -11,13 +11,13 @@ import io.swagger.annotations.ApiModelProperty;
  */
 @ApiModel(description = "用户")
 public class User extends AuditingDomain {
-    @ApiModelProperty(value = "用户id", readOnly = true)
+    @ApiModelProperty(value = "用户id", accessMode = ApiModelProperty.AccessMode.READ_ONLY)
     private String id;
-    @ApiModelProperty(value = "用户名")
+    @ApiModelProperty(value = "用户名", accessMode = ApiModelProperty.AccessMode.READ_ONLY)
     private String username;
-    @ApiModelProperty(value = "用户密码")
-    private String password;
-    @ApiModelProperty(value = "系统管理员")
+    @ApiModelProperty(value = "用户名称", accessMode = ApiModelProperty.AccessMode.READ_ONLY)
+    private String name;
+    @ApiModelProperty(value = "系统管理员", accessMode = ApiModelProperty.AccessMode.READ_ONLY)
     private Boolean system;
 
     public String getId() {
@@ -36,12 +36,12 @@ public class User extends AuditingDomain {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
+    public String getName() {
+        return name;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Boolean getSystem() {

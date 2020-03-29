@@ -1,11 +1,9 @@
 package com.wenyu7980.basic.service.organization.user.entity;
 
 import com.wenyu7980.basic.common.auditing.entity.AuditingEntity;
-import com.wenyu7980.basic.service.organization.company.entity.CompanyEntity;
 import com.wenyu7980.basic.service.organization.department.entity.DepartmentEntity;
 import com.wenyu7980.basic.service.organization.role.entity.RoleEntity;
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.util.List;
@@ -25,6 +23,8 @@ public class UserEntity extends AuditingEntity {
     private String id;
     /** 用户名 */
     private String username;
+    /** 用户名称 */
+    private String name;
     /** 密码 */
     private String password;
     /** 系统管理员 */
@@ -44,15 +44,21 @@ public class UserEntity extends AuditingEntity {
     /** 管理的部门 */
     @ManyToMany(mappedBy = "admins")
     private List<DepartmentEntity> adminDepartments;
-    /** 管理的公司 */
-    @OneToMany(mappedBy = "admin")
-    private List<CompanyEntity> companies;
 
     private UserEntity() {
     }
 
-    public UserEntity(String username, String password) {
+    public UserEntity(String username, String name, String password) {
         this.username = username;
+        this.name = name;
+        this.password = password;
+    }
+
+    public void setRoles(List<RoleEntity> roles) {
+        this.roles = roles;
+    }
+
+    public void setPassword(String password) {
         this.password = password;
     }
 
@@ -62,6 +68,10 @@ public class UserEntity extends AuditingEntity {
 
     public String getUsername() {
         return username;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public String getPassword() {
@@ -82,10 +92,6 @@ public class UserEntity extends AuditingEntity {
 
     public List<DepartmentEntity> getAdminDepartments() {
         return adminDepartments;
-    }
-
-    public List<CompanyEntity> getCompanies() {
-        return companies;
     }
 
 }
