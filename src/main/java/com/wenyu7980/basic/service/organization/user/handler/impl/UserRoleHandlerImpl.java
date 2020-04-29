@@ -1,6 +1,8 @@
 package com.wenyu7980.basic.service.organization.user.handler.impl;
 
 import com.wenyu7980.basic.service.organization.rolepermission.domain.Role;
+import com.wenyu7980.basic.service.organization.rolepermission.domain.RoleMenuOperator;
+import com.wenyu7980.basic.service.organization.rolepermission.entity.RoleEntity;
 import com.wenyu7980.basic.service.organization.rolepermission.mapper.RoleMapper;
 import com.wenyu7980.basic.service.organization.rolepermission.service.RoleService;
 import com.wenyu7980.basic.service.organization.user.domain.User;
@@ -14,7 +16,9 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -43,5 +47,20 @@ public class UserRoleHandlerImpl implements UserRoleHandler {
         UserEntity entity = userService.findById(id);
         return entity.getRoles().stream().map(RoleMapper::map)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public RoleMenuOperator getMenuOperators(String id) {
+        List<RoleEntity> roles = roleService.findByUserId(id);
+        Set<String> menus = new HashSet<>();
+        Set<String> operators = new HashSet<>();
+        RoleMenuOperator menuOperator = new RoleMenuOperator();
+        for (RoleEntity entity : roles) {
+            menus.addAll(entity.getMenus());
+            operators.addAll(entity.getOperators());
+        }
+        menuOperator.setMenus(menus);
+        menuOperator.setOperators(operators);
+        return menuOperator;
     }
 }

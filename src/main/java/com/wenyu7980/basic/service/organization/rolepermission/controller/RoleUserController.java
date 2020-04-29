@@ -19,7 +19,7 @@ import java.util.Set;
  * @author wenyu
  * @date 2020-02-13 
  */
-@Api(tags = { "角色管理", "用户角色管理" })
+@Api(tags = { "用户管理" })
 @RestController
 @RequestMapping("roles")
 public class RoleUserController {

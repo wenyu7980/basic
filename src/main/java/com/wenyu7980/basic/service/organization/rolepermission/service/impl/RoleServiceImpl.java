@@ -8,6 +8,8 @@ import com.wenyu7980.basic.service.organization.rolepermission.service.RoleServi
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  *
  * @author wenyu
@@ -33,5 +35,10 @@ public class RoleServiceImpl extends QueryService<RoleEntity>
     @Override
     public void delete(RoleEntity entity) {
         roleRepo.delete(entity);
+    }
+
+    @Override
+    public List<RoleEntity> findByUserId(String id) {
+        return roleRepo.findByUserId(id);
     }
 }

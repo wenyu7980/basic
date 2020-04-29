@@ -1,6 +1,5 @@
 package com.wenyu7980.basic.service.organization.user.controller;
 
-import com.wenyu7980.basic.authorization.annotation.AuthRequest;
 import com.wenyu7980.basic.common.query.PageBody;
 import com.wenyu7980.basic.common.query.QuerySearch;
 import com.wenyu7980.basic.common.query.QuerySearchName;
@@ -15,7 +14,6 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -34,7 +32,6 @@ public class UserQueryController {
 
     @ApiOperation("用户查询")
     @GetMapping(path = "{id}")
-    @ResponseStatus(code = HttpStatus.OK)
     public UserDetail getUser(@ApiParam("用户id") @PathVariable("id") String id,
             @ApiParam("是否查询详情") @RequestParam(value = "detail", defaultValue = "false") boolean detail) {
 
@@ -43,7 +40,6 @@ public class UserQueryController {
 
     @ApiOperation("用户列表查询")
     @GetMapping()
-    @ResponseStatus(code = HttpStatus.OK)
     public PageBody<UserListDetail> getUsers(
             @ApiParam("所属部门id") @RequestParam(value = "departmentId", required = false) String departmentId,
             @ApiParam("所属管理部门id") @RequestParam(value = "adminDepartmentId", required = false) String adminDepartmentId,
@@ -60,8 +56,6 @@ public class UserQueryController {
 
     @ApiOperation("用户列表查询")
     @PostMapping(path = "search")
-    @ResponseStatus(code = HttpStatus.OK)
-    @AuthRequest(required = false)
     public PageBody<UserListDetail> searchUsers(
             @ApiParam("页码") @RequestParam(value = "index", defaultValue = "0") Integer index,
             @ApiParam("页大小") @RequestParam(value = "size", defaultValue = "20") Integer size,

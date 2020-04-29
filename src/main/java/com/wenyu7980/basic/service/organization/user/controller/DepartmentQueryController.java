@@ -14,7 +14,6 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -22,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
  * @author wenyu
  * @date 2020-02-14 
  */
-@Api(tags = "部门管理")
+@Api(tags = "用户管理")
 @RestController
 @RequestMapping("departments")
 public class DepartmentQueryController {
@@ -31,7 +30,6 @@ public class DepartmentQueryController {
 
     @ApiOperation("部门查询")
     @GetMapping()
-    @ResponseStatus(HttpStatus.OK)
     public PageBody<DepartmentListDetail> getDepartments(
             @ApiParam("管理员id") @RequestParam(value = "adminId", required = false) String adminId,
             @ApiParam("员工id") @RequestParam(value = "userId", required = false) String userId,
@@ -51,7 +49,6 @@ public class DepartmentQueryController {
 
     @ApiOperation("部门查询")
     @GetMapping("{id}")
-    @ResponseStatus(HttpStatus.OK)
     public DepartmentDetail getDepartment(
             @ApiParam("部门id") @PathVariable("id") String id,
             @ApiParam("是否查询详情") @RequestParam(value = "detail", defaultValue = "false") boolean detail) {
