@@ -27,8 +27,6 @@ public class TokenEntity {
     private String username;
     /** 部门id */
     private String departmentId;
-    /** 公司id */
-    private String companyId;
     /** 系统管理员 */
     private Boolean system;
     /** 过期时间（s） */
@@ -44,44 +42,41 @@ public class TokenEntity {
      * header token
      * @param userId
      * @param departmentId
-     * @param companyId
      * @param system
      * @param username
      * @param expire
      * @return
      */
     public static TokenEntity ofHeader(String userId, String departmentId,
-            String companyId, Boolean system, String username, Long expire) {
-        return new TokenEntity(TokenType.HEADER, userId, departmentId,
-                companyId, system, username, expire);
+            Boolean system, String username, Long expire) {
+        return new TokenEntity(TokenType.HEADER, userId, departmentId, system,
+                username, expire);
     }
 
     /**
      * query token
      * @param userId
      * @param departmentId
-     * @param companyId
      * @param system
      * @param username
      * @param expire
      * @return
      */
     public static TokenEntity ofQuery(String userId, String departmentId,
-            String companyId, Boolean system, String username, Long expire) {
-        return new TokenEntity(TokenType.QUERY, userId, departmentId, companyId,
-                system, username, expire);
+            Boolean system, String username, Long expire) {
+        return new TokenEntity(TokenType.QUERY, userId, departmentId, system,
+                username, expire);
     }
 
     private TokenEntity() {
     }
 
     private TokenEntity(TokenType type, String userId, String departmentId,
-            String companyId, Boolean system, String username, Long expire) {
+            Boolean system, String username, Long expire) {
         this.token = UUID.randomUUID().toString().replaceAll("-", "");
         this.type = type;
         this.userId = userId;
         this.departmentId = departmentId;
-        this.companyId = companyId;
         this.username = username;
         this.expire = expire;
         this.loginDateTime = LocalDateTime.now();
@@ -134,10 +129,6 @@ public class TokenEntity {
 
     public String getDepartmentId() {
         return this.departmentId;
-    }
-
-    public String getCompanyId() {
-        return companyId;
     }
 
     public Boolean getSystem() {

@@ -1,8 +1,8 @@
 package com.wenyu7980.basic.authorization.starter;
 
 import com.wenyu7980.basic.authorization.annotation.AuthRequest;
-import com.wenyu7980.basic.service.organization.permission.entity.PermissionEntity;
-import com.wenyu7980.basic.service.organization.permission.service.PermissionService;
+import com.wenyu7980.basic.service.organization.rolepermission.entity.PermissionEntity;
+import com.wenyu7980.basic.service.organization.rolepermission.service.PermissionService;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

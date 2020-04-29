@@ -1,12 +1,11 @@
 package com.wenyu7980.basic.authorization.domain;
 
-import com.wenyu7980.basic.service.organization.department.domain.DepartmentSimple;
+import com.wenyu7980.basic.service.organization.user.domain.DepartmentSimple;
 import com.wenyu7980.basic.service.organization.user.domain.UserSimple;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.time.LocalDateTime;
-import java.util.Set;
 
 /**
  * 登录结果
@@ -27,10 +26,6 @@ public class LoginResult {
     private DepartmentSimple department;
     @ApiModelProperty(value = "最后登录时间", readOnly = true)
     private LocalDateTime latestLoginDateTime;
-    @ApiModelProperty(value = "菜单code", readOnly = true)
-    private Set<String> menus;
-    @ApiModelProperty(value = "操作code", readOnly = true)
-    private Set<String> operators;
 
     public Boolean getSystem() {
         return system;
@@ -78,21 +73,5 @@ public class LoginResult {
 
     public void setLatestLoginDateTime(LocalDateTime latestLoginDateTime) {
         this.latestLoginDateTime = latestLoginDateTime;
-    }
-
-    public Set<String> getMenus() {
-        return menus;
-    }
-
-    public void setMenus(Set<String> menus) {
-        this.menus = menus;
-    }
-
-    public Set<String> getOperators() {
-        return operators;
-    }
-
-    public void setOperators(Set<String> operators) {
-        this.operators = operators;
     }
 }

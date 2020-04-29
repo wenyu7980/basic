@@ -71,10 +71,9 @@ public class BadRequestFilter extends HttpFilter {
     private void logRequestUser() {
         if (AuthorizationUtil.isPresent()) {
             RequestUser requestUser = AuthorizationUtil.get();
-            LOGGER.warn("用户ID:{}，用户名:{},token:{},部门id:{},公司id:{}",
+            LOGGER.warn("用户ID:{}，用户名:{},token:{},部门id:{}",
                     requestUser.getUserId(), requestUser.getUsername(),
-                    requestUser.getToken(), requestUser.getDepartmentId(),
-                    requestUser.getCompanyId());
+                    requestUser.getToken(), requestUser.getDepartmentId());
         }
     }
 

@@ -6,7 +6,6 @@ spring:
   datasource:
     schema:
       - classpath:schema-sys.sql
-      - classpath:schema-menu.sql
       - classpath:schema-dict.sql
     data:
       - classpath:data-auth.sql

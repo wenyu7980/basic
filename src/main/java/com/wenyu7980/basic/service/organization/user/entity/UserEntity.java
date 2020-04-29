@@ -1,8 +1,7 @@
 package com.wenyu7980.basic.service.organization.user.entity;
 
 import com.wenyu7980.basic.common.auditing.entity.AuditingEntity;
-import com.wenyu7980.basic.service.organization.department.entity.DepartmentEntity;
-import com.wenyu7980.basic.service.organization.role.entity.RoleEntity;
+import com.wenyu7980.basic.service.organization.rolepermission.entity.RoleEntity;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;

@@ -11,7 +11,7 @@ public class AuthorizationUtil {
     private static ThreadLocal<RequestUser> USERS = new InheritableThreadLocal<>();
 
     public static String getUserId() {
-        return USERS.get() == null ? null : USERS.get().getUserId();
+        return USERS.get().getUserId();
     }
 
     public static void set(RequestUser user) {

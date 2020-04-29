@@ -1,6 +1,7 @@
 package com.wenyu7980.basic.authorization.domain;
 
 import com.wenyu7980.basic.authorization.constant.TokenType;
+import com.wenyu7980.basic.authorization.entity.TokenEntity;
 
 /**
  *
@@ -12,8 +13,6 @@ public class RequestUser {
     private String userId;
     /** 部门id */
     private String departmentId;
-    /** 公司id */
-    private String companyId;
     /** 系统管理员 */
     private Boolean system;
     /** 用户名 */
@@ -23,16 +22,13 @@ public class RequestUser {
     /** token类型 */
     private TokenType tokenType;
 
-    public RequestUser(String userId, String departmentId, String companyId,
-            Boolean system, String username, String token,
-            TokenType tokenType) {
-        this.userId = userId;
-        this.departmentId = departmentId;
-        this.companyId = companyId;
-        this.username = username;
-        this.token = token;
-        this.tokenType = tokenType;
-        this.system = system;
+    public RequestUser(TokenEntity entity) {
+        this.userId = entity.getUserId();
+        this.departmentId = entity.getDepartmentId();
+        this.system = entity.getSystem();
+        this.token = entity.getToken();
+        this.tokenType = entity.getType();
+        this.username = entity.getUsername();
     }
 
     public String getUserId() {
@@ -41,10 +37,6 @@ public class RequestUser {
 
     public String getDepartmentId() {
         return departmentId;
-    }
-
-    public String getCompanyId() {
-        return companyId;
     }
 
     public String getUsername() {

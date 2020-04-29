@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  *
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @ServletComponentScan
 @EnableJpaAuditing
 @SpringBootApplication
+@EnableSwagger2
 public class BasicApplication {
 
     public static void main(String[] args) {

@@ -15,9 +15,7 @@ public class AuditingMapper {
     public static void mapTo(AuditingEntity entity, AuditingDomain domain) {
         domain.setCreatedDateTime(entity.getCreatedDateTime());
         domain.setCreatedUserId(entity.getCreatedUserId());
-        domain.setDeletedDateTime(entity.getDeletedDateTime());
         domain.setDeletedFlag(entity.getDeletedFlag());
-        domain.setDeletedUserId(entity.getDeletedUserId());
         domain.setUpdatedDateTime(entity.getUpdatedDateTime());
         domain.setUpdatedUserId(entity.getUpdatedUserId());
     }

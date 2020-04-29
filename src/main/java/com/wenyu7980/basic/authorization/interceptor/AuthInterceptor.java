@@ -10,7 +10,7 @@ import com.wenyu7980.basic.authorization.util.AuthorizationUtil;
 import com.wenyu7980.basic.exception.code401.NoLoginException;
 import com.wenyu7980.basic.exception.code401.TokenInvalidException;
 import com.wenyu7980.basic.exception.code403.InsufficientException;
-import com.wenyu7980.basic.service.organization.permission.entity.PermissionEntity;
+import com.wenyu7980.basic.service.organization.rolepermission.entity.PermissionEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -55,16 +55,13 @@ public class AuthInterceptor implements HandlerInterceptor {
             return true;
         }
         // 请求中用户信息
-        Optional<RequestInfo> optional = this
-                .getRequestUserFromRequest(request);
-        if (!optional.isPresent()) {
-            throw new NoLoginException("请求未携带token");
-        }
-        RequestInfo requestInfo = optional.get();
+        RequestInfo requestInfo = this.getRequestUserFromRequest(request)
+                .orElseThrow(() -> new NoLoginException("请求未携带token"));
         TokenEntity tokenEntity = this.tokenService
                 .findOptionalById(requestInfo.token)
                 .orElseThrow(() -> new TokenInvalidException("token已失效"));
         if (Objects.nonNull(authRequest) && !authRequest.check()) {
+            AuthorizationUtil.set(new RequestUser(tokenEntity));
             // 不需要借口权限校验
             return true;
         }
@@ -102,10 +99,7 @@ public class AuthInterceptor implements HandlerInterceptor {
                         permission.getPath());
             }
         }
-        AuthorizationUtil.set(new RequestUser(tokenEntity.getUserId(),
-                tokenEntity.getDepartmentId(), tokenEntity.getCompanyId(),
-                tokenEntity.getSystem(), tokenEntity.getUsername(),
-                tokenEntity.getToken(), tokenEntity.getType()));
+        AuthorizationUtil.set(new RequestUser(tokenEntity));
         return true;
     }
 

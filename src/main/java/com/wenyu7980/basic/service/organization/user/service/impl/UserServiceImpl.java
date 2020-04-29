@@ -2,7 +2,7 @@ package com.wenyu7980.basic.service.organization.user.service.impl;
 
 import com.wenyu7980.basic.exception.code404.NotFoundException;
 import com.wenyu7980.basic.service.organization.user.entity.UserEntity;
-import com.wenyu7980.basic.service.organization.user.repositry.UserRepo;
+import com.wenyu7980.basic.service.organization.user.repository.UserRepo;
 import com.wenyu7980.basic.service.organization.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

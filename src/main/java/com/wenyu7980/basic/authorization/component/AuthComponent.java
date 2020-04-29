@@ -1,7 +1,7 @@
 package com.wenyu7980.basic.authorization.component;
 
-import com.wenyu7980.basic.service.organization.permission.entity.PermissionEntity;
-import com.wenyu7980.basic.service.organization.permission.service.PermissionService;
+import com.wenyu7980.basic.service.organization.rolepermission.entity.PermissionEntity;
+import com.wenyu7980.basic.service.organization.rolepermission.service.PermissionService;
 import com.wenyu7980.basic.exception.code500.SystemException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
