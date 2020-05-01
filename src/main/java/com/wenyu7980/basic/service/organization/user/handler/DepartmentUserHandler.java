@@ -26,19 +26,4 @@ public interface DepartmentUserHandler {
      * @return
      */
     Department modifyUser(String id, Set<String> userIds);
-
-    /**
-     * 查询部门管理员
-     * @param id
-     * @return
-     */
-    List<User> getAdminByDepartment(String id);
-
-    /**
-     * 修改部门管理员
-     * @param id
-     * @param userIds
-     * @return
-     */
-    Department modifyAdmin(String id, Set<String> userIds);
 }

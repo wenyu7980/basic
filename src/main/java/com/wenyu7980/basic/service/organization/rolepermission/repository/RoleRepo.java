@@ -20,5 +20,5 @@ public interface RoleRepo extends JpaRepository<RoleEntity, String>,
      * @param id
      * @return
      */
-    List<RoleEntity> findByUserId(String id);
+    List<RoleEntity> findByUsersId(String id);
 }

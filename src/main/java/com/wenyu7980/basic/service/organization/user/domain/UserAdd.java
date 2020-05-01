@@ -17,14 +17,17 @@ public class UserAdd {
     @NotEmpty
     @Size(min = 6, max = 18)
     private String username;
-    @ApiModelProperty(name = "用户名称", required = true)
+    @ApiModelProperty(value = "用户名称", required = true)
     @NotEmpty
     @Size(min = 2, max = 8)
     private String name;
-    @ApiModelProperty(name = "密码", required = true)
+    @ApiModelProperty(value = "密码", required = true)
     @NotEmpty
     @Size(min = 6, max = 18)
     private String password;
+    @ApiModelProperty(value = "部门id", required = true)
+    @NotEmpty
+    private String departmentId;
 
     public String getUsername() {
         return username;
@@ -50,4 +53,11 @@ public class UserAdd {
         this.password = password;
     }
 
+    public String getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(String departmentId) {
+        this.departmentId = departmentId;
+    }
 }

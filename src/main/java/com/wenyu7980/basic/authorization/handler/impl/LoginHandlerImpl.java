@@ -9,7 +9,6 @@ import com.wenyu7980.basic.authorization.handler.LoginHandler;
 import com.wenyu7980.basic.authorization.util.PasswordUtil;
 import com.wenyu7980.basic.exception.code400.RequestBodyBadException;
 import com.wenyu7980.basic.exception.code401.LoginFailException;
-import com.wenyu7980.basic.service.organization.user.entity.DepartmentEntity;
 import com.wenyu7980.basic.service.organization.user.entity.UserEntity;
 import com.wenyu7980.basic.service.organization.user.mapper.UserMapper;
 import com.wenyu7980.basic.service.organization.user.service.UserService;
@@ -19,7 +18,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  *
@@ -55,34 +56,10 @@ public class LoginHandlerImpl implements LoginHandler {
         // 获取旧token信息
         Optional<TokenEntity> old = tokenComponent
                 .getLastestToken(entity.getId());
-        String departmentId = null;
-        if (old.isPresent()) {
-            // 旧token中的departmentId
-            departmentId = old.get().getDepartmentId();
-            result.setLatestLoginDateTime(old.get().getLoginDateTime());
-        }
-        final Set<DepartmentEntity> departments = new LinkedHashSet<>();
-        departments.addAll(entity.getDepartments());
-        departments.addAll(entity.getAdminDepartments());
-        if (departments.size() == 0) {
-            departmentId = null;
-        }
-        // 确认departmentId
-        DepartmentEntity departmentEntity = null;
-        for (DepartmentEntity department : departments) {
-            if (department.getDeletedFlag()) {
-                continue;
-            }
-            departmentEntity = department;
-            departmentId = department.getId();
-            if (Objects.equals(department.getId(), departmentId)) {
-                break;
-            }
-        }
         // 获取新的token
         Map<TokenType, String> tokens = tokenComponent
-                .getTokens(entity.getId(), departmentId, entity.getSystem(),
-                        entity.getUsername());
+                .getTokens(entity.getId(), entity.getDepartment().getId(),
+                        entity.getSystem(), entity.getUsername());
         result.setUser(UserMapper.simpleMap(entity));
         result.setHeaderToken(tokens.get(TokenType.HEADER));
         result.setQueryToken(tokens.get(TokenType.QUERY));

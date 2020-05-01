@@ -37,10 +37,14 @@ public class DepartmentQueryController {
             @ApiParam("页码") @RequestParam(value = "index", defaultValue = "0") Integer index,
             @ApiParam("页大小") @RequestParam(value = "size", defaultValue = "20") Integer size,
             @ApiParam("是否查询详情") @RequestParam(value = "detail", defaultValue = "false") boolean detail) {
-        return queryHandler.getPage(QueryLogic.and(QueryJoin.join("admins",
-                QueryCondition.of("id", QueryCompare.EQ, adminId)), QueryJoin
-                        .join("users",
-                                QueryCondition.of("id", QueryCompare.EQ, userId)),
+        return queryHandler.getPage(QueryLogic.and(
+                // 管理员
+                QueryJoin.join("admin",
+                        QueryCondition.of("id", QueryCompare.EQ, adminId)),
+                // 用户
+                QueryJoin.join("users",
+                        QueryCondition.of("id", QueryCompare.EQ, userId)),
+                // 上级部门id
                 QueryJoin.join("parent",
                         QueryCondition.of("id", QueryCompare.EQ, parentId))),
                 PageRequest.of(index, size, Sort.Direction.DESC,

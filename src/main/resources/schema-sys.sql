@@ -1,8 +1,6 @@
 DROP TABLE IF EXISTS `sys_token`;
 DROP TABLE IF EXISTS `sys_user`;
 DROP TABLE IF EXISTS `sys_department`;
-DROP TABLE IF EXISTS `sys_department_user`;
-DROP TABLE IF EXISTS `sys_department_admin`;
 DROP TABLE IF EXISTS `sys_permission`;
 DROP TABLE IF EXISTS `sys_role`;
 DROP TABLE IF EXISTS `sys_user_role`;
@@ -32,6 +30,7 @@ CREATE TABLE `sys_user`(
   `name` varchar(18) NOT NULL COMMENT '用户名称',
   `password` varchar(32) NOT NULL COMMENT '密码',
   `system` int(1) NOT NULL DEFAULT 0 COMMENT '系统管理员',
+  `department_id` varchar(32) COMMENT '部门id',
   `created_user_id` varchar(32) COMMENT '创建者',
   `created_date_time` datetime COMMENT '创建时间',
   `updated_user_id` varchar(32) COMMENT '更新者',
@@ -49,6 +48,7 @@ CREATE TABLE `sys_department`(
   `id` varchar(32) NOT NULL COMMENT '部门id',
   `name` varchar(255) NOT NULL COMMENT '名称',
   `parent_id` varchar(32) COMMENT '上级部门id',
+  `admin_id` varchar(32) COMMENT '管理员id',
   `created_user_id` varchar(32) COMMENT '创建者',
   `created_date_time` datetime COMMENT '创建时间',
   `updated_user_id` varchar(32) COMMENT '更新者',
@@ -58,24 +58,6 @@ CREATE TABLE `sys_department`(
 )
 ENGINE=innodb DEFAULT CHARACTER SET utf8mb4
 COMMENT '部门表';
-
--- 部门用户表
-CREATE TABLE `sys_department_user`(
-  `department_id` varchar(32) NOT NULL COMMENT '部门id',
-  `user_id` varchar(255) NOT NULL COMMENT '用户id',
-  primary key(`department_id`,`user_id`)
-)
-ENGINE=innodb DEFAULT CHARACTER SET utf8mb4
-COMMENT '部门用户表';
-
--- 部门管理员表
-CREATE TABLE `sys_department_admin`(
-  `department_id` varchar(32) NOT NULL COMMENT '部门id',
-  `user_id` varchar(255) NOT NULL COMMENT '用户id',
-  primary key(`department_id`,`user_id`)
-)
-ENGINE=innodb DEFAULT CHARACTER SET utf8mb4
-COMMENT '部门管理员表';
 
 -- 权限表
 CREATE TABLE `sys_permission`(

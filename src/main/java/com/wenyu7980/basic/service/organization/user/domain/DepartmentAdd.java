@@ -17,11 +17,10 @@ public class DepartmentAdd {
     @NotEmpty
     @Size(max = 255, min = 2)
     private String name;
-    @ApiModelProperty(name = "公司id", required = true)
-    @NotEmpty
-    private String companyId;
     @ApiModelProperty(name = "上级部门id")
     private String parentId;
+    @ApiModelProperty(name = "管理员id")
+    private String adminId;
 
     public String getName() {
         return name;
@@ -31,19 +30,19 @@ public class DepartmentAdd {
         this.name = name;
     }
 
-    public String getCompanyId() {
-        return companyId;
-    }
-
-    public void setCompanyId(String companyId) {
-        this.companyId = companyId;
-    }
-
     public String getParentId() {
         return parentId;
     }
 
     public void setParentId(String parentId) {
         this.parentId = parentId;
+    }
+
+    public String getAdminId() {
+        return adminId;
+    }
+
+    public void setAdminId(String adminId) {
+        this.adminId = adminId;
     }
 }

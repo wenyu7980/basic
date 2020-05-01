@@ -38,19 +38,22 @@ public class UserEntity extends AuditingEntity {
     })
     private List<RoleEntity> roles;
     /** 用户所在部门 */
-    @ManyToMany(mappedBy = "users")
-    private List<DepartmentEntity> departments;
+    @ManyToOne
+    @JoinColumn(name = "department_id")
+    private DepartmentEntity department;
     /** 管理的部门 */
-    @ManyToMany(mappedBy = "admins")
+    @OneToMany(mappedBy = "admin")
     private List<DepartmentEntity> adminDepartments;
 
     private UserEntity() {
     }
 
-    public UserEntity(String username, String name, String password) {
+    public UserEntity(String username, String name, String password,
+            DepartmentEntity departmet) {
         this.username = username;
         this.name = name;
         this.password = password;
+        this.department = departmet;
     }
 
     public void setRoles(List<RoleEntity> roles) {
@@ -85,8 +88,12 @@ public class UserEntity extends AuditingEntity {
         return roles;
     }
 
-    public List<DepartmentEntity> getDepartments() {
-        return departments;
+    public DepartmentEntity getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(DepartmentEntity department) {
+        this.department = department;
     }
 
     public List<DepartmentEntity> getAdminDepartments() {

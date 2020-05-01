@@ -43,6 +43,9 @@ public class DepartmentHandlerImp
         }
         DepartmentEntity entity = new DepartmentEntity(department.getName(),
                 parent);
+        if (Objects.nonNull(department.getAdminId())) {
+            entity.setAdmin(userService.findById(department.getAdminId()));
+        }
         return DepartmentMapper.map(departmentService.save(entity));
     }
 
@@ -53,6 +56,9 @@ public class DepartmentHandlerImp
         if (entity.getDeletedFlag()) {
             throw new InconsistentException("部门:{0}已删除，请勿重复删除",
                     entity.getName());
+        }
+        if (entity.getUsers().size() > 0) {
+            throw new InconsistentException("请先将部门:{0}下员工转移到其他部门");
         }
         entity.setDeletedFlag(true);
         departmentService.save(entity);
@@ -66,8 +72,12 @@ public class DepartmentHandlerImp
             entity.setParent(
                     departmentService.findById(department.getParentId()));
         } else {
-
             entity.setParent(null);
+        }
+        if (Objects.nonNull(department.getAdminId())) {
+            entity.setAdmin(userService.findById(department.getAdminId()));
+        } else {
+            entity.setAdmin(null);
         }
         return DepartmentMapper.map(departmentService.save(entity));
     }
@@ -86,20 +96,5 @@ public class DepartmentHandlerImp
     public List<User> getUserByDepartment(String id) {
         return departmentService.findById(id).getUsers().stream()
                 .map(UserMapper::map).collect(Collectors.toList());
-    }
-
-    @Override
-    public List<User> getAdminByDepartment(String id) {
-        return departmentService.findById(id).getAdmins().stream()
-                .map(UserMapper::map).collect(Collectors.toList());
-    }
-
-    @Override
-    public Department modifyAdmin(String id, Set<String> userIds) {
-        DepartmentEntity entity = departmentService.findById(id);
-        entity.setAdmins(
-                userIds.stream().map(userId -> userService.findById(userId))
-                        .collect(Collectors.toList()));
-        return DepartmentMapper.map(departmentService.save(entity));
     }
 }

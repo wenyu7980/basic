@@ -46,8 +46,11 @@ public class UserQueryController {
             @ApiParam("页码") @RequestParam(value = "index", defaultValue = "0") Integer index,
             @ApiParam("页大小") @RequestParam(value = "size", defaultValue = "20") Integer size,
             @ApiParam("是否查询详情") @RequestParam(value = "detail", defaultValue = "false") boolean detail) {
-        return queryHandler.getPage(QueryLogic.and(QueryJoin.join("departments",
-                QueryCondition.of("id", QueryCompare.EQ, departmentId)),
+        return queryHandler.getPage(QueryLogic.and(
+                // 所属部门
+                QueryJoin.join("department",
+                        QueryCondition.of("id", QueryCompare.EQ, departmentId)),
+                // 管理部门
                 QueryJoin.join("adminDepartments", QueryCondition
                         .of("id", QueryCompare.EQ, adminDepartmentId))),
                 PageRequest.of(index, size, Sort.Direction.DESC,

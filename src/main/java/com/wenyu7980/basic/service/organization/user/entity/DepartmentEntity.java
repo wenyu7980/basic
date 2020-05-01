@@ -16,7 +16,7 @@ import java.util.Objects;
 @Entity
 public class DepartmentEntity extends AuditingEntity {
     @Id
-    @GenericGenerator(name = "UUID", strategy = "uuid")
+    @GenericGenerator(name = "UUID", strategy = "uuid32")
     @GeneratedValue(generator = "UUID")
     private String id;
     /** 部门名称 */
@@ -28,17 +28,11 @@ public class DepartmentEntity extends AuditingEntity {
     @ManyToOne
     @JoinColumn(name = "parent_id")
     private DepartmentEntity parent;
-    @ManyToMany
-    @JoinTable(name = "sys_department_admin", joinColumns = {
-            @JoinColumn(name = "department_id")
-    }, inverseJoinColumns = { @JoinColumn(name = "user_id") })
-    private List<UserEntity> admins;
-
+    @ManyToOne
+    @JoinColumn(name = "admin_id")
+    private UserEntity admin;
     /** 部门员工 */
-    @ManyToMany
-    @JoinTable(name = "sys_department_user", joinColumns = {
-            @JoinColumn(name = "department_id")
-    }, inverseJoinColumns = { @JoinColumn(name = "user_id") })
+    @OneToMany(mappedBy = "department")
     private List<UserEntity> users;
 
     private DepartmentEntity() {
@@ -61,8 +55,12 @@ public class DepartmentEntity extends AuditingEntity {
         this.parent = parent;
     }
 
-    public void setAdmins(List<UserEntity> admins) {
-        this.admins = admins;
+    public UserEntity getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(UserEntity admin) {
+        this.admin = admin;
     }
 
     public String getId() {
@@ -79,10 +77,6 @@ public class DepartmentEntity extends AuditingEntity {
 
     public DepartmentEntity getParent() {
         return parent;
-    }
-
-    public List<UserEntity> getAdmins() {
-        return admins;
     }
 
     public List<UserEntity> getUsers() {

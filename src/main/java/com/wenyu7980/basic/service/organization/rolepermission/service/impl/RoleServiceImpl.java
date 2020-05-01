@@ -39,6 +39,6 @@ public class RoleServiceImpl extends QueryService<RoleEntity>
 
     @Override
     public List<RoleEntity> findByUserId(String id) {
-        return roleRepo.findByUserId(id);
+        return roleRepo.findByUsersId(id);
     }
 }

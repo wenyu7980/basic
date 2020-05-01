@@ -37,19 +37,4 @@ public class DepartmentUserController {
             @RequestBody Set<String> userIds) {
         return departmentUserHandler.modifyUser(id, userIds);
     }
-
-    @ApiOperation("查询部门管理员")
-    @GetMapping("{id}/admins")
-    public List<User> getAdmin(
-            @ApiParam("部门id") @PathVariable("id") String id) {
-        return departmentUserHandler.getAdminByDepartment(id);
-    }
-
-    @ApiOperation("修改部门管理员")
-    @PutMapping("{id}/admins")
-    public Department modifyAdmin(
-            @ApiParam("部门id") @PathVariable("id") String id,
-            @RequestBody Set<String> userIds) {
-        return departmentUserHandler.modifyAdmin(id, userIds);
-    }
 }
