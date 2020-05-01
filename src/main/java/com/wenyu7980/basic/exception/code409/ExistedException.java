@@ -10,6 +10,6 @@ import org.springframework.http.HttpStatus;
  */
 public class ExistedException extends AbstractException {
     public ExistedException(String message, Object... params) {
-        super(HttpStatus.CONFLICT, 1, message, params);
+        super(HttpStatus.CONFLICT, message, params);
     }
 }

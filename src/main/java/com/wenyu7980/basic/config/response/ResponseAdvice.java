@@ -4,7 +4,6 @@ import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 /**
@@ -13,7 +12,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
  * @date 2020-03-01 
  */
 //@RestControllerAdvice
-public class ResponseBodyPackageAdvice implements ResponseBodyAdvice {
+public class ResponseAdvice implements ResponseBodyAdvice {
     @Override
     public boolean supports(MethodParameter methodParameter, Class aClass) {
         return true;
@@ -28,6 +27,9 @@ public class ResponseBodyPackageAdvice implements ResponseBodyAdvice {
                 || serverHttpRequest.getURI().getPath().contains("api-docs")) {
             return o;
         }
-        return new ResponsePackageBody(200, o);
+        if (o instanceof ResponseBody) {
+            return o;
+        }
+        return new ResponseBody(200, o);
     }
 }

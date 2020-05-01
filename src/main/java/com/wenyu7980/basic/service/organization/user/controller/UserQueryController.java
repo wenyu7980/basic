@@ -1,9 +1,9 @@
 package com.wenyu7980.basic.service.organization.user.controller;
 
 import com.wenyu7980.basic.common.query.PageBody;
-import com.wenyu7980.basic.common.query.QuerySearch;
-import com.wenyu7980.basic.common.query.QuerySearchName;
-import com.wenyu7980.basic.common.query.QuerySearchUtil;
+import com.wenyu7980.basic.common.query.logic.QuerySearch;
+import com.wenyu7980.basic.common.query.logic.QuerySearchName;
+import com.wenyu7980.basic.common.query.logic.QuerySearchUtil;
 import com.wenyu7980.basic.service.organization.user.domain.UserDetail;
 import com.wenyu7980.basic.service.organization.user.domain.UserListDetail;
 import com.wenyu7980.basic.service.organization.user.handler.UserQueryHandler;

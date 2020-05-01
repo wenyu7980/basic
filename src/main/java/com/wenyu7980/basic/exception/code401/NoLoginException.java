@@ -10,6 +10,6 @@ import org.springframework.http.HttpStatus;
  */
 public class NoLoginException extends AbstractException {
     public NoLoginException(String message, Object... params) {
-        super(HttpStatus.UNAUTHORIZED, 1, message, params);
+        super(HttpStatus.UNAUTHORIZED, message, params);
     }
 }

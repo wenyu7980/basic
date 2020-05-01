@@ -10,6 +10,6 @@ import org.springframework.http.HttpStatus;
  */
 public class NotFoundException extends AbstractException {
     public NotFoundException(String message, Object... params) {
-        super(HttpStatus.NOT_FOUND, 1, message, params);
+        super(HttpStatus.NOT_FOUND, message, params);
     }
 }

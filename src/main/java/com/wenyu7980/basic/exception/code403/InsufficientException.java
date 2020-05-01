@@ -11,6 +11,6 @@ import org.springframework.http.HttpStatus;
 public class InsufficientException extends AbstractException {
 
     public InsufficientException(String message, Object... params) {
-        super(HttpStatus.FORBIDDEN, 1, message, params);
+        super(HttpStatus.FORBIDDEN, message, params);
     }
 }

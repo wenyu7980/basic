@@ -1,4 +1,4 @@
-package com.wenyu7980.basic.common.query;
+package com.wenyu7980.basic.common.query.logic;
 
 import com.wenyu7980.basic.exception.code400.SearchBodyBadException;
 import com.wenyu7980.query.QueryLogic;

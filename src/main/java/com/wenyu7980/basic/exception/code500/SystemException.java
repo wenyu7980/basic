@@ -10,6 +10,6 @@ import org.springframework.http.HttpStatus;
  */
 public class SystemException extends AbstractException {
     public SystemException(String message, Object... params) {
-        super(HttpStatus.INTERNAL_SERVER_ERROR, 1, message, params);
+        super(HttpStatus.INTERNAL_SERVER_ERROR, message, params);
     }
 }

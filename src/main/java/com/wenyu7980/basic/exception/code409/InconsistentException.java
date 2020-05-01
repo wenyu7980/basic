@@ -10,6 +10,6 @@ import org.springframework.http.HttpStatus;
  */
 public class InconsistentException extends AbstractException {
     public InconsistentException(String message, Object... params) {
-        super(HttpStatus.CONFLICT, 2, message, params);
+        super(HttpStatus.CONFLICT, message, params);
     }
 }

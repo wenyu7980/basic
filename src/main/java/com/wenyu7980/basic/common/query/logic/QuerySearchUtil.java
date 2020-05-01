@@ -1,4 +1,4 @@
-package com.wenyu7980.basic.common.query;
+package com.wenyu7980.basic.common.query.logic;
 
 import com.wenyu7980.query.QueryLogic;
 import com.wenyu7980.query.QueryPredicateExpress;

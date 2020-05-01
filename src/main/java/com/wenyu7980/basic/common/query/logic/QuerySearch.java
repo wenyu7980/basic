@@ -1,4 +1,4 @@
-package com.wenyu7980.basic.common.query;
+package com.wenyu7980.basic.common.query.logic;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

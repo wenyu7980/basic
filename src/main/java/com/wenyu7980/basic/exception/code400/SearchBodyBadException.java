@@ -10,6 +10,6 @@ import org.springframework.http.HttpStatus;
  */
 public class SearchBodyBadException extends AbstractException {
     public SearchBodyBadException(String message, Object... params) {
-        super(HttpStatus.BAD_REQUEST, 1, message, params);
+        super(HttpStatus.BAD_REQUEST, message, params);
     }
 }

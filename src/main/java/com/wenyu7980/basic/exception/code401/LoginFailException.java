@@ -10,6 +10,6 @@ import org.springframework.http.HttpStatus;
  */
 public class LoginFailException extends AbstractException {
     public LoginFailException(String message, Object... params) {
-        super(HttpStatus.UNAUTHORIZED, 3, message, params);
+        super(HttpStatus.UNAUTHORIZED, message, params);
     }
 }

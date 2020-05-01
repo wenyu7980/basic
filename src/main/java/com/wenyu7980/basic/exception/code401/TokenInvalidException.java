@@ -10,6 +10,6 @@ import org.springframework.http.HttpStatus;
  */
 public class TokenInvalidException extends AbstractException {
     public TokenInvalidException(String message, Object... params) {
-        super(HttpStatus.UNAUTHORIZED, 2, message, params);
+        super(HttpStatus.UNAUTHORIZED, message, params);
     }
 }

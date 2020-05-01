@@ -10,18 +10,12 @@ import java.text.MessageFormat;
  * @date 2020-01-26 
  */
 public abstract class AbstractException extends RuntimeException {
-    private HttpStatus status;
     private Integer code;
 
-    public AbstractException(HttpStatus status, Integer code, String message,
+    public AbstractException(HttpStatus status, String message,
             Object... params) {
         super(MessageFormat.format(message, params));
-        this.status = status;
-        this.code = code;
-    }
-
-    public HttpStatus getStatus() {
-        return status;
+        this.code = status.value();
     }
 
     public Integer getCode() {
