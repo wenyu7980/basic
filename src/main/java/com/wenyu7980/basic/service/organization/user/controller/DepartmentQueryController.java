@@ -31,12 +31,12 @@ public class DepartmentQueryController {
     @ApiOperation("部门查询")
     @GetMapping()
     public PageBody<DepartmentListDetail> getDepartments(
-            @ApiParam("管理员id") @RequestParam(value = "adminId", required = false) String adminId,
-            @ApiParam("员工id") @RequestParam(value = "userId", required = false) String userId,
-            @ApiParam("上级部门id") @RequestParam(value = "parentId", required = false) String parentId,
-            @ApiParam("页码") @RequestParam(value = "index", defaultValue = "0") Integer index,
-            @ApiParam("页大小") @RequestParam(value = "size", defaultValue = "20") Integer size,
-            @ApiParam("是否查询详情") @RequestParam(value = "detail", defaultValue = "false") boolean detail) {
+            @ApiParam("管理员id") @RequestParam(required = false) String adminId,
+            @ApiParam("员工id") @RequestParam(required = false) String userId,
+            @ApiParam("上级部门id") @RequestParam(required = false) String parentId,
+            @ApiParam("页码") @RequestParam(defaultValue = "0") Integer index,
+            @ApiParam("页大小") @RequestParam(defaultValue = "20") Integer size,
+            @ApiParam("是否查询详情") @RequestParam(defaultValue = "false") boolean detail) {
         return queryHandler.getPage(QueryLogic.and(
                 // 管理员
                 QueryJoin.join("admin",
@@ -55,7 +55,7 @@ public class DepartmentQueryController {
     @GetMapping("{id}")
     public DepartmentDetail getDepartment(
             @ApiParam("部门id") @PathVariable("id") String id,
-            @ApiParam("是否查询详情") @RequestParam(value = "detail", defaultValue = "false") boolean detail) {
+            @ApiParam("是否查询详情") @RequestParam(defaultValue = "false") boolean detail) {
         return queryHandler.getOne(id, detail);
     }
 }

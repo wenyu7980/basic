@@ -41,11 +41,11 @@ public class UserQueryController {
     @ApiOperation("用户列表查询")
     @GetMapping()
     public PageBody<UserListDetail> getUsers(
-            @ApiParam("所属部门id") @RequestParam(value = "departmentId", required = false) String departmentId,
-            @ApiParam("所属管理部门id") @RequestParam(value = "adminDepartmentId", required = false) String adminDepartmentId,
-            @ApiParam("页码") @RequestParam(value = "index", defaultValue = "0") Integer index,
-            @ApiParam("页大小") @RequestParam(value = "size", defaultValue = "20") Integer size,
-            @ApiParam("是否查询详情") @RequestParam(value = "detail", defaultValue = "false") boolean detail) {
+            @ApiParam("所属部门id") @RequestParam(required = false) String departmentId,
+            @ApiParam("所属管理部门id") @RequestParam(required = false) String adminDepartmentId,
+            @ApiParam("页码") @RequestParam(defaultValue = "0") Integer index,
+            @ApiParam("页大小") @RequestParam(defaultValue = "20") Integer size,
+            @ApiParam("是否查询详情") @RequestParam(defaultValue = "false") boolean detail) {
         return queryHandler.getPage(QueryLogic.and(
                 // 所属部门
                 QueryJoin.join("department",
@@ -60,9 +60,9 @@ public class UserQueryController {
     @ApiOperation("用户列表查询")
     @PostMapping(path = "search")
     public PageBody<UserListDetail> searchUsers(
-            @ApiParam("页码") @RequestParam(value = "index", defaultValue = "0") Integer index,
-            @ApiParam("页大小") @RequestParam(value = "size", defaultValue = "20") Integer size,
-            @ApiParam("是否查询详情") @RequestParam(value = "detail", defaultValue = "false") boolean detail,
+            @ApiParam("页码") @RequestParam(defaultValue = "0") Integer index,
+            @ApiParam("页大小") @RequestParam(defaultValue = "20") Integer size,
+            @ApiParam("是否查询详情") @RequestParam(defaultValue = "false") boolean detail,
             @RequestBody @Valid QuerySearch<UserSearchName> search) {
         QueryPredicateExpress express = QuerySearchUtil
                 .toPredicateExpress(search);

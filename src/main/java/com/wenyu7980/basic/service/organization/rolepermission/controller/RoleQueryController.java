@@ -43,9 +43,9 @@ public class RoleQueryController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public PageBody<RoleListDetail> getRoles(
-            @ApiParam("页码") @RequestParam(value = "index", defaultValue = "0") Integer index,
-            @ApiParam("页大") @RequestParam(value = "size", defaultValue = "20") Integer size,
-            @ApiParam("是否查询详情") @RequestParam(value = "detail", defaultValue = "false") boolean detail) {
+            @ApiParam("页码") @RequestParam(defaultValue = "0") Integer index,
+            @ApiParam("页大") @RequestParam(defaultValue = "20") Integer size,
+            @ApiParam("是否查询详情") @RequestParam(defaultValue = "false") boolean detail) {
         Pageable pageable = PageRequest
                 .of(index, size, Sort.Direction.DESC, "createdDateTime");
         return queryHandler.getPage(QueryLogic.and(), pageable, detail);
